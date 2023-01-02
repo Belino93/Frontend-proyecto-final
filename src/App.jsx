@@ -6,7 +6,7 @@ import Repairs from "./containers/Repairs/Repairs";
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <BrowserRouter>
         <Header />
         <Routes>
