@@ -17,7 +17,7 @@
   padding-top: 1em;
   border-radius: 30px;
   background: #e0e0e0;
-  box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+  box-shadow: 5px 5px 10px #bebebe;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,8 +25,14 @@
   text-align: center;
 }
 
+.fix-text{
+    color: rgba(96, 9, 240, 1);
+    text-shadow: 1px 1px 5px rgba(96, 9, 240, 1);
+}
+
+
 .card .text {
-    text-shadow: 0px 0px 20px #4700A5;
+    text-shadow: 1px 1px 5px rgba(96, 9, 240, 1);
 }
 
 .custom-btn {
