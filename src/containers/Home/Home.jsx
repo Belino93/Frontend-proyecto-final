@@ -1,9 +1,11 @@
 import "./Home.css";
+import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <Container fluid>
       <Row className="container-home">
@@ -32,7 +34,7 @@ function Home() {
               Earth has limited resources. Eventually we will run out. The best
               way to be efficient is to reuse wht we already have.
             </p>
-            <button class="custom-btn btn-1">Let's repair</button>
+            <button className="custom-btn btn-1" onClick={()=> {navigate('/repairs')}}>Let's repair</button>
           </div>
         </Col>
       </Row>
