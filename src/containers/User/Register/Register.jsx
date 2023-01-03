@@ -49,12 +49,12 @@ function Register() {
   };
 
   return (
-    <Container fluid className="main">
+    <Container fluid className="main min-vh-100">
       <Row className="container-register">
         <Col className="d-flex flex-column justify-content-center">
           <div className="card">
-            <h1>Register</h1>
-            <form className="d-flex flex-column gap-1" onSubmit={handleSubmit}>
+            <h1 className="register-text">Register</h1>
+            <form className="d-flex flex-column form" onSubmit={handleSubmit}>
               <label className="inp" htmlFor="inp">
                 <input
                   type="text"
@@ -112,9 +112,11 @@ function Register() {
                 <span className="focus-bg"></span>
               </label>
               <div className="inp-error">{userError.password2Error}</div>
+              <div>
               <button className="custom-btn btn-1" type="submit">
                 Register
               </button>
+              </div>
             </form>
           </div>
         </Col>
