@@ -7,10 +7,10 @@ import Col from "react-bootstrap/Col";
 function Home() {
   const navigate = useNavigate();
   return (
-    <Container fluid>
-      <Row className="container-home">
-        <Col className="d-flex flex-column justify-content-center column-card">
-          <div class="card">
+    <Container fluid className="d-flex flex-column justify-content-center min-vh-100">
+      <Row className="container-home flex-grow-1">
+        <Col>
+          <div className="card">
             <h1>Welcome to <span className="fix-text">Fix</span>App</h1>
             <h4>If you can't fix it, you don't own it.! </h4>
             <h4>
