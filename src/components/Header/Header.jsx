@@ -19,7 +19,7 @@ function Header() {
           </Nav>
           <Nav>
             <Nav.Link onClick={() => navigate('/login')}>Login</Nav.Link>
-            <Nav.Link eventKey={2} onClick={() => navigate('/register')}>
+            <Nav.Link onClick={() => navigate('/register')}>
               Register
             </Nav.Link>
           </Nav>
