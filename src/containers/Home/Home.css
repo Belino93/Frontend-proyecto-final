@@ -4,7 +4,6 @@
 }
 
 .container-home {
-  height: 92vh;
   align-items: center;
   background: linear-gradient(
     0deg,
@@ -36,12 +35,11 @@
 }
 
 .custom-btn {
-  width: 10em;
+  width: 12em;
   height: 2.5em;
   color: #fff;
   border-radius: 5px;
-  padding: 10px 25px;
-  font-family: "Lato", sans-serif;
+  font-family: inherit;
   font-weight: 500;
   background: transparent;
   cursor: pointer;
