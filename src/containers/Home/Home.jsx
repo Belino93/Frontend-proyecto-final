@@ -9,8 +9,8 @@ function Home() {
   return (
     <Container fluid>
       <Row className="container-home">
-        <Col className="d-flex flex-column justify-content-center column-card">
-          <div class="card">
+        <Col className="d-flex flex-column justify-content-center">
+          <div className="card">
             <h1>Welcome to <span className="fix-text">Fix</span>App</h1>
             <h4>If you can't fix it, you don't own it.! </h4>
             <h4>
