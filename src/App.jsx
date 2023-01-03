@@ -1,8 +1,10 @@
+
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./containers/Home/Home";
 import Header from "./components/Header/Header";
 import Repairs from "./containers/Repairs/Repairs";
+import Register from "./containers/User/Register/Register";
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
 
           <Route path={"/"} element={<Home />} />
           <Route path={"/repairs"} element={<Repairs />} />
+          <Route path={"/register"} element={<Register/>} />
         </Routes>
       </BrowserRouter>
     </div>
