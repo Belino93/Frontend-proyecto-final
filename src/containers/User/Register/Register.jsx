@@ -32,13 +32,28 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user.name);
+    let isValid = true
+    //console.log(user);
+    Object.values(user).forEach(element => {
+        if(element === ""){
+            isValid = false;
+        }
+    });
+    Object.values(userError).forEach(element => {
+        if(element !== ""){
+            isValid = false;
+        }
+    });
+    if(!isValid){
+        return console.log('No valid')
+    }
+    console.log('Register succesfully');
+    
   };
 
   const errorHandler = (e) => {
     let error = "";
     error = registerValidator(e.target.name, e.target.value, user.password);
-    console.log(error);
     if (error === undefined) {
       error = "";
     }
@@ -113,9 +128,9 @@ function Register() {
               </label>
               <div className="inp-error">{userError.password2Error}</div>
               <div>
-              <button className="custom-btn btn-1" type="submit">
-                Register
-              </button>
+                <button className="custom-btn btn-1" type="submit">
+                  Register
+                </button>
               </div>
             </form>
           </div>
