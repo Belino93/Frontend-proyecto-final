@@ -6,3 +6,12 @@ export const getBrands = async () => {
 
     return brands
 }
+
+export const loginUser = async (user) => {
+    const loginData = await axios.post(baseUrl + "login", {
+        email: user.email,
+        password:user.password,
+    });
+    return loginData
+
+}
