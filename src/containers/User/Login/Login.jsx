@@ -7,6 +7,7 @@ import { loginUser } from "../../../services/apiCalls";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -28,7 +29,7 @@ function Login() {
         localStorage.setItem("token", res.data.token);
       })
       .then(() => {
-        setLoginError("");
+        navigate("/");
       })
       .catch((error) => setLoginError(error.response.data.message));
   };
@@ -58,6 +59,8 @@ function Login() {
                 <span className="label">Password</span>
                 <span className="focus-bg"></span>
               </label>
+              <div className="inp-error">{loginError}</div>
+              <div></div>
               <div>
                 <button className="custom-btn btn-1" type="submit">
                   Login
