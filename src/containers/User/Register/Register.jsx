@@ -7,6 +7,8 @@ import Col from "react-bootstrap/Col";
 import { registerValidator } from "./registerCheck";
 
 function Register() {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState({
     name: "",
     surname: "",
@@ -22,6 +24,13 @@ function Register() {
     passwordError: "",
     password2Error: "",
   });
+
+  useEffect(() => {
+    if(localStorage.getItem('token')){
+        navigate('/')
+    }
+    return;
+  }, [])
 
   const inpHandler = (e) => {
     setUser((prevState) => ({
