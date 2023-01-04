@@ -38,7 +38,6 @@ function Login() {
           name: res.user.name,
           email: res.user.email,
         };
-        console.log(res.user);
         localStorage.setItem("token", res.token);
         localStorage.setItem("user", JSON.stringify(userData));
       })
