@@ -5,6 +5,7 @@ import Home from "./containers/Home/Home";
 import Header from "./components/Header/Header";
 import Repairs from "./containers/Repairs/Repairs";
 import Register from "./containers/User/Register/Register";
+import Login from "./containers/User/Login/Login";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path={"/"} element={<Home />} />
           <Route path={"/repairs"} element={<Repairs />} />
           <Route path={"/register"} element={<Register/>} />
+          <Route path={"/login"} element={<Login/>} />
         </Routes>
       </BrowserRouter>
     </div>
