@@ -2,9 +2,11 @@ import "./Register.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
+import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { registerValidator } from "./registerCheck";
+import { registerUser } from "../../../services/apiCalls";
 
 function Register() {
   const navigate = useNavigate();
@@ -25,12 +27,15 @@ function Register() {
     password2Error: "",
   });
 
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+
   useEffect(() => {
-    if(localStorage.getItem('token')){
-        navigate('/')
+    if (localStorage.getItem("token")) {
+      navigate("/");
     }
     return;
-  }, [])
+  }, []);
 
   const inpHandler = (e) => {
     setUser((prevState) => ({
@@ -41,23 +46,29 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let isValid = true
+    let isValid = true;
     //console.log(user);
-    Object.values(user).forEach(element => {
-        if(element === ""){
-            isValid = false;
-        }
+    Object.values(user).forEach((element) => {
+      if (element === "") {
+        isValid = false;
+      }
     });
-    Object.values(userError).forEach(element => {
-        if(element !== ""){
-            isValid = false;
-        }
+    Object.values(userError).forEach((element) => {
+      if (element !== "") {
+        isValid = false;
+      }
     });
-    if(!isValid){
-        return console.log('No valid')
+    if (!isValid) {
+      return;
     }
-    console.log('Register succesfully');
-    
+    setShow(true);
+    registerUser(user)
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        return;
+      });
   };
 
   const errorHandler = (e) => {
@@ -140,6 +151,14 @@ function Register() {
                 <button className="custom-btn btn-1" type="submit">
                   Register
                 </button>
+                <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Registes succesfully</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    {user.name} check your email. You will be redirect to home.
+                  </Modal.Body>
+                </Modal>
               </div>
             </form>
           </div>
