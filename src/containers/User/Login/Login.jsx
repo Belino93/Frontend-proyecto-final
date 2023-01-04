@@ -14,14 +14,13 @@ function Login() {
   });
 
   const [loginError, setLoginError] = useState("");
-  
+
   useEffect(() => {
-    if(localStorage.getItem('token')){
-        navigate('/')
+    if (localStorage.getItem("token")) {
+      navigate("/");
     }
     return;
-  }, [])
-  
+  }, []);
 
   const inpHandler = (e) => {
     setUser((prevState) => ({
@@ -34,7 +33,14 @@ function Login() {
     e.preventDefault();
     loginUser(user)
       .then((res) => {
-        localStorage.setItem("token", res.data.token);
+        let userData = {
+          id: res.user.id,
+          name: res.user.name,
+          email: res.user.email,
+        };
+        console.log(res.user);
+        localStorage.setItem("token", res.token);
+        localStorage.setItem("user", JSON.stringify(userData));
       })
       .then(() => {
         navigate("/");
