@@ -1,34 +1,37 @@
 import { useState, useEffect } from "react";
-import "./Login.css"
+import "./Login.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {loginUser} from "../../../services/apiCalls"
+import { loginUser } from "../../../services/apiCalls";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
 
-    const [user, setUser] = useState({
-        email:"",
-        password:"",
-    });
+  const [loginError, setLoginError] = useState("");
 
-    const [error, setError] = useState({
-        error:"",
-    })
+  const inpHandler = (e) => {
+    setUser((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
-    const inpHandler = (e) => {
-        setUser((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value,
-        }));
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        loginUser(user).then((res) => {console.log(res.data)}).catch((error) => console.log(error));
-        
-    }
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    loginUser(user)
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+      })
+      .then(() => {
+        setLoginError("");
+      })
+      .catch((error) => setLoginError(error.response.data.message));
+  };
 
   return (
     <Container fluid className="main min-vh-100">
