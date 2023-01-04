@@ -24,3 +24,14 @@ export const loginUser = async (user) => {
   }
   return loginData;
 };
+
+export const registerUser = async (user) => {
+  const registerData = await axios.post(baseUrl + 'register', {
+    name:user.name,
+    surname:user.surname,
+    email:user.email,
+    password:user.password,
+  })
+
+  return registerData
+}
