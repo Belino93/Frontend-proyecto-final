@@ -14,6 +14,14 @@ function Login() {
   });
 
   const [loginError, setLoginError] = useState("");
+  
+  useEffect(() => {
+    if(localStorage.getItem('token')){
+        navigate('/')
+    }
+    return;
+  }, [])
+  
 
   const inpHandler = (e) => {
     setUser((prevState) => ({
