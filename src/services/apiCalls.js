@@ -1,10 +1,12 @@
 import axios from "axios";
 const baseUrl = "http://127.0.0.1:8000/api/";
+const token = localStorage.getItem('token')
+const config = {
+  headers: { Authorization: "Bearer " + token },
+};
 
 export const getBrands = async (userToken) => {
-  let config = {
-    headers: { Authorization: "Bearer " + userToken },
-  };
+  
   const brands = await axios.get(baseUrl + "devices/brand", config);
 
   return brands;
@@ -37,4 +39,9 @@ export const registerUser = async (user) => {
   })
 
   return registerData
+}
+
+export const getUserRepairs = async(userToken) => {
+  const userRepairs = await axios.get(baseUrl + 'user/repairs', config)
+  return userRepairs
 }
