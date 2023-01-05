@@ -5,11 +5,11 @@ import { getBrands } from "../../services/apiCalls";
 
 function Repairs() {
   const [brands, setBrands] = useState([]);
+  const userToken = localStorage.getItem('token');
   useEffect(() => {
     if (brands.length === 0) {
-      getBrands()
+      getBrands(userToken)
         .then((res) => {
-
           setBrands(res.data.data);
         })
         .catch((error) => {

@@ -1,8 +1,11 @@
 import axios from "axios";
 const baseUrl = "http://127.0.0.1:8000/api/";
 
-export const getBrands = async () => {
-  const brands = await axios.get(baseUrl + "devices/brand");
+export const getBrands = async (userToken) => {
+  let config = {
+    headers: { Authorization: "Bearer " + userToken },
+  };
+  const brands = await axios.get(baseUrl + "devices/brand", config);
 
   return brands;
 };
