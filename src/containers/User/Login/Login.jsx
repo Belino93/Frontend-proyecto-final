@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { loginUser } from "../../../services/apiCalls";
 import { useNavigate } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 
 function Login() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ function Login() {
     email: "",
     password: "",
   });
+  const [isSend, setIsSend] = useState(false);
 
   const [loginError, setLoginError] = useState("");
 
@@ -31,6 +33,7 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSend(true);
     loginUser(user)
       .then((res) => {
         let userData = {
@@ -44,7 +47,10 @@ function Login() {
       .then(() => {
         navigate("/");
       })
-      .catch((error) => setLoginError(error.response.data.message));
+      .catch((error) => {
+        setLoginError(error.response.data.message);
+        setIsSend(false);
+      });
   };
 
   return (
@@ -75,9 +81,12 @@ function Login() {
               <div className="inp-error">{loginError}</div>
               <div></div>
               <div>
-                <button className="custom-btn btn-1" type="submit">
-                  Login
-                </button>
+                {!isSend && (
+                  <button className="custom-btn btn-1" type="submit">
+                    Login
+                  </button>
+                )}
+                {isSend && (<Spinner animation="border" className="spinner-load"/>)}
               </div>
             </form>
           </div>
