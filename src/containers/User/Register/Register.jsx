@@ -7,9 +7,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { registerValidator } from "./registerCheck";
 import { registerUser } from "../../../services/apiCalls";
+import Spinner from "react-bootstrap/Spinner";
 
 function Register() {
   const navigate = useNavigate();
+  const [isSend, setIsSend] = useState(false);
+  const [registerError, setRegisterError] = useState('')
 
   const [user, setUser] = useState({
     name: "",
@@ -61,12 +64,17 @@ function Register() {
     if (!isValid) {
       return;
     }
-    setShow(true);
+    setIsSend(true);
     registerUser(user)
-      .then(() => {
+      .then((res) => {
+        console.log(res);
+        setShow(true);
+        console.log("registro completado");
         navigate("/");
       })
       .catch((error) => {
+        setIsSend(false)
+        setRegisterError(error.response.data);
         return;
       });
   };
@@ -148,9 +156,18 @@ function Register() {
               </label>
               <div className="inp-error">{userError.password2Error}</div>
               <div>
-                <button className="custom-btn btn-1" type="submit">
-                  Register
-                </button>
+                {!isSend && (
+                  <>
+                  <button className="custom-btn btn-1" type="submit">
+                    Register
+                  </button>
+                  <div className="inp-error">{registerError.slice(11,44)}</div>
+                  </>
+                )}
+
+                {isSend && (
+                  <Spinner animation="border" className="spinner-load" />
+                )}
                 <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>
                     <Modal.Title>Registes succesfully</Modal.Title>
