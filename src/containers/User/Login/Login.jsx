@@ -33,24 +33,26 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSend(true);
-    loginUser(user)
-      .then((res) => {
-        let userData = {
-          id: res.user.id,
-          name: res.user.name,
-          email: res.user.email,
-        };
-        localStorage.setItem("token", res.token);
-        localStorage.setItem("user", JSON.stringify(userData));
-      })
-      .then(() => {
-        navigate("/");
-      })
-      .catch((error) => {
-        setLoginError(error.response.data.message);
-        setIsSend(false);
-      });
+    if (user.email !== "" && user.password !== "") {
+      setIsSend(true);
+      loginUser(user)
+        .then((res) => {
+          let userData = {
+            id: res.user.id,
+            name: res.user.name,
+            email: res.user.email,
+          };
+          localStorage.setItem("token", res.token);
+          localStorage.setItem("user", JSON.stringify(userData));
+        })
+        .then(() => {
+          navigate("/");
+        })
+        .catch((error) => {
+          setLoginError(error.response.data.message);
+          setIsSend(false);
+        });
+    }
   };
 
   return (
@@ -86,7 +88,9 @@ function Login() {
                     Login
                   </button>
                 )}
-                {isSend && (<Spinner animation="border" className="spinner-load"/>)}
+                {isSend && (
+                  <Spinner animation="border" className="spinner-load" />
+                )}
               </div>
             </form>
           </div>
