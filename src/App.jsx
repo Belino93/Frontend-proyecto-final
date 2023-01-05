@@ -6,6 +6,7 @@ import Header from "./components/Header/Header";
 import Repairs from "./containers/Repairs/Repairs";
 import Register from "./containers/User/Register/Register";
 import Login from "./containers/User/Login/Login";
+import Profile from "./containers/User/Profile/Profile";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path={"/repairs"} element={<Repairs />} />
           <Route path={"/register"} element={<Register/>} />
           <Route path={"/login"} element={<Login/>} />
+          <Route path={"/profile"} element={<Profile/>} />
         </Routes>
       </BrowserRouter>
     </div>
