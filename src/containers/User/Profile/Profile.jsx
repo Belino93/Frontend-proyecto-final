@@ -31,19 +31,18 @@ function Profile() {
 
       {userRepairs.length > 0 && (
         <Row className="container-home flex-grow-1">
-          <Col>
             {userRepairs.map((repair, index) => {
               return (
-                <div key={index} className="card">
+                <Col key={index} className="card col-12 col-md-6">
                   <h1>
                     {repair.brand} {repair.model}
                   </h1>
-                  <h3>{repair.type}</h3>
-                  <p>{repair.imei}</p>
-                </div>
+                  <h3>Repair type: {repair.type}</h3>
+                  <p>IMEI: {repair.imei}</p>
+                  <p>Status: {repair.name}</p>
+                </Col>
               );
             })}
-          </Col>
         </Row>
       )}
     </Container>
