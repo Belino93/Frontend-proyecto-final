@@ -5,6 +5,9 @@ import Home from "./containers/Home/Home";
 import Header from "./components/Header/Header";
 import Repairs from "./containers/Repairs/Repairs";
 import Register from "./containers/User/Register/Register";
+import Login from "./containers/User/Login/Login";
+import Profile from "./containers/User/Profile/Profile";
+import Admin from "./containers/Admin/Admin";
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
           <Route path={"/"} element={<Home />} />
           <Route path={"/repairs"} element={<Repairs />} />
           <Route path={"/register"} element={<Register/>} />
+          <Route path={"/login"} element={<Login/>} />
+          <Route path={"/profile"} element={<Profile/>} />
+          <Route path={"/admin"} element={<Admin/>} />
         </Routes>
       </BrowserRouter>
     </div>

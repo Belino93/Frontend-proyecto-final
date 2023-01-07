@@ -1,4 +1,14 @@
-.nav-text {
+.brand-text{
+    text-shadow: 1px 1px 5px white;
+    font-weight: bold;
+}
+
+.brand-slice {
     color: rgba(96, 9, 240, 1);
     text-shadow: 1px 1px 5px rgba(96, 9, 240, 1);
+}
+
+.nav-text {
+    color: white;
+    text-shadow: 1px 1px 5px white;
 }

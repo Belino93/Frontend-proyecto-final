@@ -2,11 +2,18 @@ import "./Register.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
+import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { registerValidator } from "./registerCheck";
+import { registerUser } from "../../../services/apiCalls";
+import Spinner from "react-bootstrap/Spinner";
 
 function Register() {
+  const navigate = useNavigate();
+  const [isSend, setIsSend] = useState(false);
+  const [registerError, setRegisterError] = useState('')
+
   const [user, setUser] = useState({
     name: "",
     surname: "",
@@ -23,6 +30,16 @@ function Register() {
     password2Error: "",
   });
 
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+    return;
+  }, []);
+
   const inpHandler = (e) => {
     setUser((prevState) => ({
       ...prevState,
@@ -32,13 +49,39 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user.name);
+    let isValid = true;
+    //console.log(user);
+    Object.values(user).forEach((element) => {
+      if (element === "") {
+        isValid = false;
+      }
+    });
+    Object.values(userError).forEach((element) => {
+      if (element !== "") {
+        isValid = false;
+      }
+    });
+    if (!isValid) {
+      return;
+    }
+    setIsSend(true);
+    registerUser(user)
+      .then((res) => {
+        console.log(res);
+        setShow(true);
+        console.log("registro completado");
+        navigate("/");
+      })
+      .catch((error) => {
+        setIsSend(false)
+        setRegisterError(error.response.data);
+        return;
+      });
   };
 
   const errorHandler = (e) => {
     let error = "";
     error = registerValidator(e.target.name, e.target.value, user.password);
-    console.log(error);
     if (error === undefined) {
       error = "";
     }
@@ -113,9 +156,26 @@ function Register() {
               </label>
               <div className="inp-error">{userError.password2Error}</div>
               <div>
-              <button className="custom-btn btn-1" type="submit">
-                Register
-              </button>
+                {!isSend && (
+                  <>
+                  <button className="custom-btn btn-1" type="submit">
+                    Register
+                  </button>
+                  <div className="inp-error">{registerError.slice(11,44)}</div>
+                  </>
+                )}
+
+                {isSend && (
+                  <Spinner animation="border" className="spinner-load" />
+                )}
+                <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Registes succesfully</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    {user.name} check your email. You will be redirect to home.
+                  </Modal.Body>
+                </Modal>
               </div>
             </form>
           </div>
