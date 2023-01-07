@@ -41,6 +41,7 @@ function Login() {
             id: res.user.id,
             name: res.user.name,
             email: res.user.email,
+            role_id: res.user.role_id
           };
           localStorage.setItem("token", res.token);
           localStorage.setItem("user", JSON.stringify(userData));
