@@ -53,3 +53,8 @@ export const getAllUsersRepairs = async () => {
   const userRepairs = await axios.get(baseUrl + "admin/repairs", config);
   return userRepairs;
 };
+export const getUserRepairsByImei = async (input) => {
+  const imei = {'imei':input}
+  const userRepairs = await axios.post(baseUrl + "user/repairs/imei",imei, config);
+  return userRepairs;
+};
