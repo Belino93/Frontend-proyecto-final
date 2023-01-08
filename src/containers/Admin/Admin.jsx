@@ -42,6 +42,8 @@ function Admin() {
                   <h3>Repair type: {userRepair.type}</h3>
                   <p>IMEI: {userRepair.imei}</p>
                   <p>Status: {userRepair.name}</p>
+                  <p>Created: {userRepair.created_at}</p>
+                  <p>Last status update: {userRepair.updated_at}</p>
                   <p>Owner: {userRepair.email}</p>
                 </Col>
             )
