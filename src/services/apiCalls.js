@@ -58,3 +58,8 @@ export const getUserRepairsByImei = async (input) => {
   const userRepairs = await axios.post(baseUrl + "user/repairs/imei",imei, config);
   return userRepairs;
 };
+export const getDevicesByBrand = async (brandName) => {
+  const body = {'brand':brandName}
+  const devices = await axios.post(baseUrl + "devices/brand",body, config);
+  return devices;
+};
