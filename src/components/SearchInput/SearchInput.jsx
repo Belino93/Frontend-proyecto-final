@@ -4,7 +4,7 @@ import './SearchInput.css'
 function SearchInput({handler}) {
   return (
     <form className="form">
-    <input className="input" placeholder="Type your text" required="" type="text" onChange={(e)=>{handler(e.target.value)}}></input>
+    <input className="input" placeholder="Search by Imei" required="" type="text" onChange={(e)=>{handler(e.target.value)}}></input>
     
 </form>
   )
