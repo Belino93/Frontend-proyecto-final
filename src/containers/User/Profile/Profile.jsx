@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./Profile.css"
+import "./Profile.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -21,13 +21,18 @@ function Profile() {
   const [userRepairs, setUserRepairs] = useState([]);
   const [clickedRepair, setClickedRepair] = useState({});
   const [search, setSearch] = useState([]);
+  const [repairError, setRepairError] = useState("");
 
   useEffect(() => {
     getUserRepairs()
       .then((res) => {
         setUserRepairs(res.data.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        if (error?.response?.status === 400) {
+          setRepairError(error?.response?.data.message);
+        }
+      });
   }, []);
 
   const inputHandler = debounce((input) => {
@@ -47,25 +52,31 @@ function Profile() {
   };
 
   return (
-    <Container
-      fluid
-      className="d-flex min-vh-100 flex-column text-center container-home gap-2 align-items-center"
-    >
-      <Row className="">
+    <Container fluid className="min-vh-100 text-center container-home">
+      <Row>
         <Col className="mt-1">
-          <SearchInput handler={inputHandler} />
+          <div className="search-div">
+            <SearchInput handler={inputHandler} />
+          </div>
         </Col>
       </Row>
       {userRepairs.length === 0 && search.length === 0 && (
-        <Row className="flex-grow-1 container-home">
+        <Row className="flex-grow-1">
           <Col>
-            <div>
-              <Spinner
-                animation="border"
-                variant="light"
-                className="spinner-load"
-              />
-            </div>
+            {repairError === "" && (
+              <div>
+                <Spinner
+                  animation="border"
+                  variant="light"
+                  className="spinner-load"
+                />
+              </div>
+            )}
+            {repairError !== "" && (
+              <div>
+                <h1>{repairError}</h1>
+              </div>
+            )}
           </Col>
         </Row>
       )}
@@ -119,8 +130,7 @@ function Profile() {
                         <span className="highlighted">{repair.type}</span>
                       </p>
                       <p>
-                        Imei:{" "}
-                        <span className="highlighted">{repair.imei}</span>
+                        Imei: <span className="highlighted">{repair.imei}</span>
                       </p>
                     </div>
                   </Col>
@@ -144,7 +154,7 @@ function Profile() {
           <p>IMEI: {clickedRepair?.imei}</p>
           <p>Created: {clickedRepair?.created_at?.slice(0, 10)}</p>
           <p>
-            Status: <span className="highlighted">{clickedRepair?.name}</span>
+            Status: <span className="highlighted">{clickedRepair?.status}</span>
           </p>
           <p>Last status update: {clickedRepair?.updated_at?.slice(0, 10)}</p>
         </Modal.Body>
