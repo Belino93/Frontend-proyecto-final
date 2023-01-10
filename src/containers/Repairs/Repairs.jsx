@@ -29,16 +29,17 @@ function Repairs() {
   const [isSend, setIsSend] = useState(false);
 
   useEffect(() => {
-    if (brands.length === 0) {
+    if (brands?.length === 0) {
       getBrands(userToken)
         .then((res) => {
+          console.log('setting repairs');
           setBrands(res.data.data);
         })
         .catch((error) => {
           return;
         });
     }
-    if (repairs.length === 0) {
+    if (repairs?.length === 0) {
       getAllRepairs()
         .then((res) => {
           setRepairs(res.data.data);
@@ -98,7 +99,7 @@ function Repairs() {
             }}
           >
             <option value="">Select your branch</option>
-            {brands.map((brand, index) => {
+            {brands?.map((brand, index) => {
               return (
                 <option value={brand.brand} key={index}>
                   {brand.brand}
@@ -119,10 +120,10 @@ function Repairs() {
             }}
           >
             <option value="">Select your device</option>
-            {devices.map((device, index) => {
+            {devices?.map((device, index) => {
               return (
-                <option value={device.id} key={index}>
-                  {device.model}
+                <option value={device?.id} key={index}>
+                  {device?.model}
                 </option>
               );
             })}
@@ -139,10 +140,10 @@ function Repairs() {
             }}
           >
             <option value="">Select your repair</option>
-            {repairs.map((repairs, index) => {
+            {repairs?.map((repairs, index) => {
               return (
-                <option value={repairs.id} key={index}>
-                  {repairs.type}
+                <option value={repairs?.id} key={index}>
+                  {repairs?.type}
                 </option>
               );
             })}
