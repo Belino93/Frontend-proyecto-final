@@ -52,6 +52,7 @@ function Repairs() {
     Object.values(userRepair).forEach((element) => {
       if (element === "") {
         userRepairValidation = false
+        setIsValid(false);
       }
     });
     if(userRepairValidation){
@@ -96,7 +97,7 @@ function Repairs() {
               brandHandler(e);
             }}
           >
-            <option>Select your branch</option>
+            <option value="">Select your branch</option>
             {brands.map((brand, index) => {
               return (
                 <option value={brand.brand} key={index}>
@@ -117,7 +118,7 @@ function Repairs() {
               selectHandler(e);
             }}
           >
-            <option>Select your device</option>
+            <option value="">Select your device</option>
             {devices.map((device, index) => {
               return (
                 <option value={device.id} key={index}>
@@ -137,7 +138,7 @@ function Repairs() {
               selectHandler(e);
             }}
           >
-            <option>Select your repair</option>
+            <option value="">Select your repair</option>
             {repairs.map((repairs, index) => {
               return (
                 <option value={repairs.id} key={index}>
