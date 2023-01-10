@@ -41,6 +41,10 @@ export const registerUser = async (user) => {
 };
 
 export const getUserRepairs = async () => {
+  const token = localStorage.getItem("token");
+  const config = {
+  headers: { Authorization: "Bearer " + token },
+  };
   const userRepairs = await axios.get(baseUrl + "user/repairs", config);
   return userRepairs;
 };
@@ -72,5 +76,17 @@ export const newUserRepair = async (userRepair) => {
   const devices = await axios.post(baseUrl + "user/repairs", body, config);
   return devices;
 };
+export const nextRepairState = async (deviceRepairId) => {
+  const body = {device_repair_id:deviceRepairId};
+  const devices = await axios.patch(baseUrl + "user/repairs/next", body, config);
+  return devices;
+};
+export const prevRepairState = async (deviceRepairId) => {
+  const body = {device_repair_id:deviceRepairId};
+  const devices = await axios.patch(baseUrl + "user/repairs/prev", body, config);
+  return devices;
+};
+
+
 
 
