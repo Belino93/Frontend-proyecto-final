@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
+import "./Profile.css"
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import {
   getUserRepairs,
   getUserRepairsByImei,
@@ -11,8 +14,12 @@ import SearchInput from "../../../components/SearchInput/SearchInput";
 import { debounce } from "lodash";
 
 function Profile() {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const user = JSON.parse(localStorage.getItem("user"));
   const [userRepairs, setUserRepairs] = useState([]);
+  const [clickedRepair, setClickedRepair] = useState({});
   const [search, setSearch] = useState([]);
 
   useEffect(() => {
@@ -22,15 +29,6 @@ function Profile() {
       })
       .catch((error) => console.log(error));
   }, []);
-
-  // const inputHandler = (input) => {
-  //   if (!input) {
-  //     setSearch([]);
-  //   }
-  //   getUserRepairsByImei(input).then((res) => {
-  //     setSearch(res.data.data);
-  //   });
-  // };
 
   const inputHandler = debounce((input) => {
     if (!input) {
@@ -42,6 +40,11 @@ function Profile() {
       })
       .catch((error) => console.log(error));
   }, 500);
+
+  const clickHandler = (repair) => {
+    setClickedRepair(repair);
+    handleShow();
+  };
 
   return (
     <Container
@@ -72,7 +75,12 @@ function Profile() {
             {search.map((repair, index) => {
               return (
                 <Col key={index} className="col-12 col-md-6">
-                  <div className="card ">
+                  <div
+                    className="card"
+                    onClick={() => {
+                      clickHandler(repair);
+                    }}
+                  >
                     <p>Repair No.{repair.id}</p>
                     <p>
                       {repair.brand} {repair.model}
@@ -81,12 +89,6 @@ function Profile() {
                       Repair type:{" "}
                       <span className="highlighted">{repair.type}</span>
                     </p>
-                    <p>IMEI: {repair.imei}</p>
-                    <p>Created: {repair.created_at.slice(0, 10)}</p>
-                    <p>
-                      Status: <span className="highlighted">{repair.name}</span>
-                    </p>
-                    <p>Last status update: {repair.updated_at?.slice(0, 10)}</p>
                   </div>
                 </Col>
               );
@@ -100,29 +102,58 @@ function Profile() {
           <Row className="">
             {userRepairs.map((repair, index) => {
               return (
-                <Col key={index} className="col-12 col-md-6">
-                  <div className="card ">
-                    <p>Repair No.{repair.id}</p>
-                    <p>
-                      {repair.brand} {repair.model}
-                    </p>
-                    <p>
-                      Repair type:{" "}
-                      <span className="highlighted">{repair.type}</span>
-                    </p>
-                    <p>IMEI: {repair.imei}</p>
-                    <p>Created: {repair.created_at.slice(0, 10)}</p>
-                    <p>
-                      Status: <span className="highlighted">{repair.name}</span>
-                    </p>
-                    <p>Last status update: {repair.updated_at?.slice(0, 10)}</p>
-                  </div>
-                </Col>
+                <>
+                  <Col key={index} className="col-12 col-md-6 mb-2">
+                    <div
+                      className="card"
+                      onClick={() => {
+                        clickHandler(repair);
+                      }}
+                    >
+                      <p>Repair No.{repair.id}</p>
+                      <p>
+                        {repair.brand} {repair.model}
+                      </p>
+                      <p>
+                        Repair type:{" "}
+                        <span className="highlighted">{repair.type}</span>
+                      </p>
+                      <p>
+                        Imei:{" "}
+                        <span className="highlighted">{repair.imei}</span>
+                      </p>
+                    </div>
+                  </Col>
+                </>
               );
             })}
           </Row>
         </>
       )}
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <p>Repair No.{clickedRepair?.id}</p>
+            <p>
+              {clickedRepair?.brand} {clickedRepair?.model}
+            </p>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Repair type: {clickedRepair?.type}</p>
+          <p>IMEI: {clickedRepair?.imei}</p>
+          <p>Created: {clickedRepair?.created_at?.slice(0, 10)}</p>
+          <p>
+            Status: <span className="highlighted">{clickedRepair?.name}</span>
+          </p>
+          <p>Last status update: {clickedRepair?.updated_at?.slice(0, 10)}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }
