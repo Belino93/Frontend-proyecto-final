@@ -54,12 +54,23 @@ export const getAllUsersRepairs = async () => {
   return userRepairs;
 };
 export const getUserRepairsByImei = async (input) => {
-  const imei = {'imei':input}
-  const userRepairs = await axios.post(baseUrl + "user/repairs/imei",imei, config);
+  const imei = { imei: input };
+  const userRepairs = await axios.post(
+    baseUrl + "user/repairs/imei",
+    imei,
+    config
+  );
   return userRepairs;
 };
 export const getDevicesByBrand = async (brandName) => {
-  const body = {'brand':brandName}
-  const devices = await axios.post(baseUrl + "devices/brand",body, config);
+  const body = { brand: brandName };
+  const devices = await axios.post(baseUrl + "devices/brand", body, config);
   return devices;
 };
+export const newUserRepair = async (userRepair) => {
+  const body = userRepair;
+  const devices = await axios.post(baseUrl + "user/repairs", body, config);
+  return devices;
+};
+
+
