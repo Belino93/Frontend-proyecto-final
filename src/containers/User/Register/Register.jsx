@@ -158,7 +158,7 @@ function Register() {
                   <button className="custom-btn btn-1" type="submit">
                     Register
                   </button>
-                  <div className="inp-error">{registerError.slice(11,44)}</div>
+                  <div className="inp-error">{registerError?.slice(11,44)}</div>
                   </>
                 )}
 
