@@ -43,17 +43,25 @@ export const registerUser = async (user) => {
 export const getUserRepairs = async () => {
   const token = localStorage.getItem("token");
   const config = {
-  headers: { Authorization: "Bearer " + token },
+    headers: { Authorization: "Bearer " + token },
   };
   const userRepairs = await axios.get(baseUrl + "user/repairs", config);
   return userRepairs;
 };
 
 export const getAllRepairs = async () => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
   const repairs = await axios.get(baseUrl + "repairs", config);
   return repairs;
 };
 export const getAllUsersRepairs = async () => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
   const userRepairs = await axios.get(baseUrl + "admin/repairs", config);
   return userRepairs;
 };
@@ -67,26 +75,46 @@ export const getUserRepairsByImei = async (input) => {
   return userRepairs;
 };
 export const getDevicesByBrand = async (brandName) => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
   const body = { brand: brandName };
   const devices = await axios.post(baseUrl + "devices/brand", body, config);
   return devices;
 };
 export const newUserRepair = async (userRepair) => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
   const body = userRepair;
   const devices = await axios.post(baseUrl + "user/repairs", body, config);
   return devices;
 };
 export const nextRepairState = async (deviceRepairId) => {
-  const body = {device_repair_id:deviceRepairId};
-  const devices = await axios.patch(baseUrl + "user/repairs/next", body, config);
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
+  const body = { device_repair_id: deviceRepairId };
+  const devices = await axios.patch(
+    baseUrl + "user/repairs/next",
+    body,
+    config
+  );
   return devices;
 };
 export const prevRepairState = async (deviceRepairId) => {
-  const body = {device_repair_id:deviceRepairId};
-  const devices = await axios.patch(baseUrl + "user/repairs/prev", body, config);
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
+  const body = { device_repair_id: deviceRepairId };
+  const devices = await axios.patch(
+    baseUrl + "user/repairs/prev",
+    body,
+    config
+  );
   return devices;
 };
-
-
-
-
