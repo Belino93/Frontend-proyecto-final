@@ -67,9 +67,6 @@ function Register() {
     setIsSend(true);
     registerUser(user)
       .then((res) => {
-        console.log(res);
-        setShow(true);
-        console.log("registro completado");
         navigate("/");
       })
       .catch((error) => {
@@ -161,21 +158,14 @@ function Register() {
                   <button className="custom-btn btn-1" type="submit">
                     Register
                   </button>
-                  <div className="inp-error">{registerError.slice(11,44)}</div>
+                  <div className="inp-error">{registerError?.slice(11,44)}</div>
                   </>
                 )}
 
                 {isSend && (
                   <Spinner animation="border" className="spinner-load" />
                 )}
-                <Modal show={show} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Registes succesfully</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    {user.name} check your email. You will be redirect to home.
-                  </Modal.Body>
-                </Modal>
+                
               </div>
             </form>
           </div>

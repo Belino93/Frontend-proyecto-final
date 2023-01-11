@@ -46,7 +46,7 @@ function Login() {
           localStorage.setItem("token", res.token);
           localStorage.setItem("user", JSON.stringify(userData));
         })
-        .then(() => {
+        .then((res) => {
           navigate("/");
         })
         .catch((error) => {

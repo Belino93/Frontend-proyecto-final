@@ -33,7 +33,7 @@ function Header() {
               </Nav.Link>
               {user?.role_id === 2 && (
                 <Nav.Link onClick={() => navigate("/admin")}>
-                  <span className="nav-text">Admin</span>
+                  <span className="nav-text">Control</span>
                 </Nav.Link>
               )}
             </Nav>
