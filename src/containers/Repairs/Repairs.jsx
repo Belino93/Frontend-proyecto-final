@@ -10,7 +10,7 @@ import {
   getBrands,
   getDevicesByBrand,
   getAllRepairs,
-  newUserRepair
+  newUserRepair,
 } from "../../services/apiCalls";
 
 function Repairs() {
@@ -32,7 +32,6 @@ function Repairs() {
     if (brands?.length === 0) {
       getBrands(userToken)
         .then((res) => {
-          console.log('setting repairs');
           setBrands(res.data.data);
         })
         .catch((error) => {
@@ -44,31 +43,32 @@ function Repairs() {
         .then((res) => {
           setRepairs(res.data.data);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          return;
+        });
     }
   }, []);
 
   useEffect(() => {
-    let userRepairValidation = true
+    let userRepairValidation = true;
     Object.values(userRepair).forEach((element) => {
       if (element === "") {
-        userRepairValidation = false
+        userRepairValidation = false;
         setIsValid(false);
       }
     });
-    if(userRepairValidation){
-      setIsValid(true)
+    if (userRepairValidation) {
+      setIsValid(true);
     }
   }, [userRepair]);
 
   const brandHandler = (e) => {
-    console.log(e.target.value);
     getDevicesByBrand(e.target.value)
       .then((res) => {
         setDevices(res.data.data);
       })
       .catch((error) => {
-        console.log(error);
+        return;
       });
   };
 
@@ -80,12 +80,11 @@ function Repairs() {
   };
 
   const submitHandler = (e) => {
-    setIsSend(true)
+    setIsSend(true);
     newUserRepair(userRepair).then((res) => {
-      setIsSend(false)
-      navigate('/')
-    })
-    
+      setIsSend(false);
+      navigate("/");
+    });
   };
 
   return (
@@ -191,9 +190,13 @@ function Repairs() {
       )}
       {isValid && isSend && (
         <Row className="d-flex justify-content-center align-items-center ">
-        <Col className="d-flex justify-content-center align-items-center pt-2">
-        <Spinner animation="border" className="spinner-load" variant="light" />
-        </Col>
+          <Col className="d-flex justify-content-center align-items-center pt-2">
+            <Spinner
+              animation="border"
+              className="spinner-load"
+              variant="light"
+            />
+          </Col>
         </Row>
       )}
     </Container>
