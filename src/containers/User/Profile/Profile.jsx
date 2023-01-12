@@ -9,6 +9,8 @@ import {
   getUserRepairs,
   getUserRepairsByImei,
 } from "../../../services/apiCalls";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 import Spinner from "react-bootstrap/Spinner";
 import SearchInput from "../../../components/SearchInput/SearchInput";
 import { debounce } from "lodash";
@@ -17,11 +19,11 @@ function Profile() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const user = JSON.parse(localStorage.getItem("user"));
   const [userRepairs, setUserRepairs] = useState([]);
   const [clickedRepair, setClickedRepair] = useState({});
   const [search, setSearch] = useState([]);
   const [repairError, setRepairError] = useState("");
+  const [profile, setProfile] = useState(false);
 
   useEffect(() => {
     getUserRepairs()
@@ -50,17 +52,62 @@ function Profile() {
     setClickedRepair(repair);
     handleShow();
   };
+  const profileClickHandler = (event) => {
+    if (event.target.innerHTML === "Repairs" && profile) {
+      return setProfile(!profile);
+    }
+    if (event.target.innerHTML === "Profile" && !profile) {
+      return setProfile(!profile);
+    }
+  };
 
   return (
     <Container fluid className="min-vh-100 text-center container-home">
-      <Row>
+      <Row className="d-flex">
+        {/* <Col className="mt-1">
+          <div className="profile-menu">Profile</div>
+        </Col>
+        <Col className="mt-1">
+          <div className="profile-menu">Repairs</div>
+        </Col> */}
+        <Tabs
+          defaultActiveKey="repairs"
+          id=""
+          className="mb-3"
+          variant="pills"
+          onClick={(e) => profileClickHandler(e)}
+        >
+          <Tab
+            key={"repair"}
+            id="repairs"
+            eventKey="repairs"
+            title="Repairs"
+            tabClassName="profile-menu"
+          ></Tab>
+          <Tab
+            key={"profile"}
+            id="repairs"
+            eventKey="profile"
+            title="Profile"
+            tabClassName="profile-menu"
+          ></Tab>
+        </Tabs>
+      </Row>
+      
+      {/* {profile && (
+
+      )} */}
+      {!profile && (
+        <Row>
         <Col className="mt-1">
           <div className="search-div">
             <SearchInput handler={inputHandler} />
           </div>
         </Col>
       </Row>
-      {userRepairs.length === 0 && search.length === 0 && (
+      )}
+
+      {userRepairs.length === 0 && search.length === 0 && !profile && (
         <Row className="flex-grow-1">
           <Col>
             {repairError === "" && (
@@ -80,7 +127,7 @@ function Profile() {
           </Col>
         </Row>
       )}
-      {search.length > 0 && (
+      {search.length > 0 && !profile && (
         <>
           <Row className="">
             {search.map((repair, index) => {
@@ -100,6 +147,9 @@ function Profile() {
                       Repair type:{" "}
                       <span className="highlighted">{repair.type}</span>
                     </p>
+                    <p>
+                      Imei: <span className="highlighted">{repair.imei}</span>
+                    </p>
                   </div>
                 </Col>
               );
@@ -108,7 +158,7 @@ function Profile() {
         </>
       )}
 
-      {search.length < 1 && (
+      {search.length < 1 && !profile &&(
         <>
           <Row className="">
             {userRepairs.map((repair, index) => {
