@@ -12,8 +12,11 @@ import {
 import Spinner from "react-bootstrap/Spinner";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 import SearchInput from "../../components/SearchInput/SearchInput.jsx";
 import { debounce } from "lodash";
+
 
 function Admin() {
   const [usersRepairs, setUsersRepairs] = useState([]);
@@ -24,6 +27,8 @@ function Admin() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [refresh, setRefresh] = useState(false);
+  const [users, setUsers] = useState(false);
+
 
   useEffect(() => {
     getAllUsersRepairs()
@@ -68,16 +73,52 @@ function Admin() {
       .catch((error) => console.log(error));
   };
 
+  const usersClickHandler = (event) => {
+    if (event.target.innerHTML === "Repairs" && users) {
+      return setUsers(!users);
+    }
+    if (event.target.innerHTML === "Users" && !users) {
+      return setUsers(!users);
+    }
+  };
+
   return (
     <Container fluid className="min-vh-100 text-center container-home">
       <Row>
-        <Col className="mt-1">
-          <div className="search-div">
-            <SearchInput handler={inputHandler} />
-          </div>
-        </Col>
+      <Tabs
+          defaultActiveKey="repairs"
+          id=""
+          className="mb-3"
+          variant="pills"
+          onClick={(e) => usersClickHandler(e)}
+
+        >
+          <Tab
+            key={"repair"}
+            id="repairs"
+            eventKey="repairs"
+            title="Repairs"
+            tabClassName="profile-menu"
+          ></Tab>
+          <Tab
+            key={"users"}
+            id="users"
+            eventKey="users"
+            title="Users"
+            tabClassName="profile-menu"
+          ></Tab>
+        </Tabs>
       </Row>
-      {usersRepairs.length === 0 && search.length === 0 && (
+      {!users && (
+        <Row>
+        <Col className="mt-1">
+        <div className="search-div">
+          <SearchInput handler={inputHandler} />
+        </div>
+      </Col>
+      </Row>
+      )}
+      {usersRepairs.length === 0 && search.length === 0 && !users && (
         <Row className="flex-grow-1">
           <Col>
             {repairError === "" && (
@@ -97,7 +138,7 @@ function Admin() {
           </Col>
         </Row>
       )}
-      {search.length > 0 && (
+      {search.length > 0 && !users && (
         <>
           <Row className="">
             {search.map((repair, index) => {
@@ -117,6 +158,9 @@ function Admin() {
                       Repair type:{" "}
                       <span className="highlighted">{repair.type}</span>
                     </p>
+                    <p>
+                      Imei: <span className="highlighted">{repair.imei}</span>
+                    </p>
                   </div>
                 </Col>
               );
@@ -125,7 +169,7 @@ function Admin() {
         </>
       )}
 
-      {search.length < 1 && (
+      {search.length < 1 && !users && (
         <>
           <Row className="d-flex justify-content-center">
             {usersRepairs.map((repair, index) => {
@@ -176,20 +220,19 @@ function Admin() {
           </p>
           <p>Last status update: {clickedRepair?.updated_at?.slice(0, 10)}</p>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className=" justify-content-between">
           <Button
-            variant="secondary"
+            variant="danger"
             onClick={() => {
               prevState(clickedRepair?.id);
             }}
+            className=" justify-content-start"
           >
             Prev state
           </Button>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
           <Button
-            variant="secondary"
+
+            variant="success"
             onClick={() => nextState(clickedRepair?.id)}
           >
             Next state
