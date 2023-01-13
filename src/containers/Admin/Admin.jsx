@@ -1,13 +1,13 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useState, useEffect } from "react";
 import {
   getAllUsersRepairs,
   getUserRepairsByImei,
   nextRepairState,
   prevRepairState,
+  getAllUsers,
 } from "../../services/apiCalls";
 import Spinner from "react-bootstrap/Spinner";
 import Modal from "react-bootstrap/Modal";
@@ -16,7 +16,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import SearchInput from "../../components/SearchInput/SearchInput.jsx";
 import { debounce } from "lodash";
-
+import UserTable from "../../components/UserTable/UserTable";
 
 function Admin() {
   const [usersRepairs, setUsersRepairs] = useState([]);
@@ -27,13 +27,21 @@ function Admin() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [refresh, setRefresh] = useState(false);
-  const [users, setUsers] = useState(false);
-
+  const [usersScreen, setUsersScreen] = useState(false);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     getAllUsersRepairs()
       .then((res) => {
         setUsersRepairs(res.data.data);
+      })
+      .catch((error) => {});
+  }, [refresh]);
+
+  useEffect(() => {
+    getAllUsers()
+      .then((res) => {
+        setUsers(res.data.data);
       })
       .catch((error) => {});
   }, [refresh]);
@@ -55,43 +63,44 @@ function Admin() {
   };
 
   const nextState = (deviceRepairId) => {
-    console.log(deviceRepairId);
     nextRepairState(deviceRepairId)
       .then((res) => {
-        setRefresh(!refresh)
+        refreshScreen();
         handleClose();
       })
       .catch();
   };
   const prevState = (deviceRepairId) => {
-    console.log(deviceRepairId);
     prevRepairState(deviceRepairId)
       .then((res) => {
-        setRefresh(!refresh)
+        setRefresh(!refresh);
         handleClose();
       })
       .catch((error) => console.log(error));
   };
 
+  const refreshScreen = () => {
+    setRefresh(!refresh);
+  };
+
   const usersClickHandler = (event) => {
-    if (event.target.innerHTML === "Repairs" && users) {
-      return setUsers(!users);
+    if (event.target.innerHTML === "Repairs" && usersScreen) {
+      return setUsersScreen(!usersScreen);
     }
-    if (event.target.innerHTML === "Users" && !users) {
-      return setUsers(!users);
+    if (event.target.innerHTML === "Users" && !usersScreen) {
+      return setUsersScreen(!usersScreen);
     }
   };
 
   return (
     <Container fluid className="min-vh-100 text-center container-home">
       <Row>
-      <Tabs
+        <Tabs
           defaultActiveKey="repairs"
           id=""
           className="mb-3"
           variant="pills"
           onClick={(e) => usersClickHandler(e)}
-
         >
           <Tab
             key={"repair"}
@@ -109,16 +118,19 @@ function Admin() {
           ></Tab>
         </Tabs>
       </Row>
-      {!users && (
-        <Row>
-        <Col className="mt-1">
-        <div className="search-div">
-          <SearchInput handler={inputHandler} />
-        </div>
-      </Col>
-      </Row>
+      {usersScreen && (
+        <UserTable users={users} refresh={refreshScreen}></UserTable>
       )}
-      {usersRepairs.length === 0 && search.length === 0 && !users && (
+      {!usersScreen && (
+        <Row>
+          <Col className="mt-1">
+            <div className="search-div">
+              <SearchInput handler={inputHandler} />
+            </div>
+          </Col>
+        </Row>
+      )}
+      {usersRepairs.length === 0 && search.length === 0 && !usersScreen && (
         <Row className="flex-grow-1">
           <Col>
             {repairError === "" && (
@@ -138,7 +150,7 @@ function Admin() {
           </Col>
         </Row>
       )}
-      {search.length > 0 && !users && (
+      {search.length > 0 && !usersScreen && (
         <>
           <Row className="">
             {search.map((repair, index) => {
@@ -168,8 +180,7 @@ function Admin() {
           </Row>
         </>
       )}
-
-      {search.length < 1 && !users && (
+      {search.length < 1 && !usersScreen && (
         <>
           <Row className="d-flex justify-content-center">
             {usersRepairs.map((repair, index) => {
@@ -231,7 +242,6 @@ function Admin() {
             Prev state
           </Button>
           <Button
-
             variant="success"
             onClick={() => nextState(clickedRepair?.id)}
           >
