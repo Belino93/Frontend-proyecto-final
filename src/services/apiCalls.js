@@ -135,12 +135,21 @@ export const getAllUsers = async () => {
   return userRepairs;
 };
 
-export const deleteUserByAdmin = async(body) => {
+export const deleteUserByAdmin = async (body) => {
   const token = localStorage.getItem("token");
-  const userDeleted = await axios.delete(baseUrl + 'users/delete',{
+  const userDeleted = await axios.delete(baseUrl + "users/delete", {
     headers: { Authorization: "Bearer " + token },
-    data: body
+    data: body,
   });
 
-  return userDeleted
-}
+  return userDeleted;
+};
+export const upgradeUserToAdmin = async (body) => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
+  const userUpdated = await axios.patch(baseUrl + "users/admin", body, config);
+
+  return userUpdated;
+};
