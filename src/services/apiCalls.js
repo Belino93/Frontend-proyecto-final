@@ -10,6 +10,15 @@ export const getBrands = async () => {
 
   return brands;
 };
+export const getProfile = async () => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
+  const userData = await axios.get(baseUrl + "profile", config);
+
+  return userData.data;
+};
 
 export const loginUser = async (user) => {
   const loginData = await axios.post(baseUrl + "login", {
@@ -150,6 +159,15 @@ export const upgradeUserToAdmin = async (body) => {
     headers: { Authorization: "Bearer " + token },
   };
   const userUpdated = await axios.patch(baseUrl + "users/admin", body, config);
+
+  return userUpdated;
+};
+export const updateUser = async (body) => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
+  const userUpdated = await axios.patch(baseUrl + "users", body, config);
 
   return userUpdated;
 };
