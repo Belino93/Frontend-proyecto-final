@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./Profile.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -8,12 +7,15 @@ import Button from "react-bootstrap/Button";
 import {
   getUserRepairs,
   getUserRepairsByImei,
+  getProfile,
 } from "../../../services/apiCalls";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Spinner from "react-bootstrap/Spinner";
 import SearchInput from "../../../components/SearchInput/SearchInput";
 import { debounce } from "lodash";
+import ProfileCard from "../../../components/ProfileCard/ProfileCard";
+import "./Profile.css";
 
 function Profile() {
   const [show, setShow] = useState(false);
@@ -24,6 +26,7 @@ function Profile() {
   const [search, setSearch] = useState([]);
   const [repairError, setRepairError] = useState("");
   const [profile, setProfile] = useState(false);
+  const [userPofile, setUserProfile] = useState({});
 
   useEffect(() => {
     getUserRepairs()
@@ -34,6 +37,14 @@ function Profile() {
         if (error?.response?.status === 400) {
           setRepairError(error?.response?.data.message);
         }
+      });
+  }, []);
+
+  useEffect(() => {
+    getProfile()
+      .then((res) => setUserProfile(res))
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
 
@@ -64,16 +75,8 @@ function Profile() {
   return (
     <Container fluid className="min-vh-100 text-center container-home">
       <Row className="d-flex">
-        {/* <Col className="mt-1">
-          <div className="profile-menu">Profile</div>
-        </Col>
-        <Col className="mt-1">
-          <div className="profile-menu">Repairs</div>
-        </Col> */}
         <Tabs
           defaultActiveKey="repairs"
-          id=""
-          className="mb-3"
           variant="pills"
           onClick={(e) => profileClickHandler(e)}
         >
@@ -93,18 +96,20 @@ function Profile() {
           ></Tab>
         </Tabs>
       </Row>
-      
-      {/* {profile && (
 
-      )} */}
+      {profile && (
+        <Row>
+          <ProfileCard className="card" userData={userPofile}></ProfileCard>
+        </Row>
+      )}
       {!profile && (
         <Row>
-        <Col className="mt-1">
-          <div className="search-div">
-            <SearchInput handler={inputHandler} />
-          </div>
-        </Col>
-      </Row>
+          <Col className="mt-1">
+            <div className="search-div">
+              <SearchInput handler={inputHandler} />
+            </div>
+          </Col>
+        </Row>
       )}
 
       {userRepairs.length === 0 && search.length === 0 && !profile && (
@@ -158,7 +163,7 @@ function Profile() {
         </>
       )}
 
-      {search.length < 1 && !profile &&(
+      {search.length < 1 && !profile && (
         <>
           <Row className="">
             {userRepairs.map((repair, index) => {
