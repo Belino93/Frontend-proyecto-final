@@ -17,6 +17,7 @@ import Tabs from "react-bootstrap/Tabs";
 import SearchInput from "../../components/SearchInput/SearchInput.jsx";
 import { debounce } from "lodash";
 import UserTable from "../../components/UserTable/UserTable";
+import "./Admin.css"
 
 function Admin() {
   const [usersRepairs, setUsersRepairs] = useState([]);
@@ -94,11 +95,9 @@ function Admin() {
 
   return (
     <Container fluid className="min-vh-100 text-center container-home">
-      <Row>
+      <Row className="mb-2">
         <Tabs
-          defaultActiveKey="repairs"
-          id=""
-          className="mb-3"
+          defaultActiveKey="repairs"  
           variant="pills"
           onClick={(e) => usersClickHandler(e)}
         >
