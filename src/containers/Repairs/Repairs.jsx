@@ -88,7 +88,8 @@ function Repairs() {
   };
 
   return (
-    <Container fluid className="min-vh-100 container-home">
+    <Container fluid className="min-vh-100 container-home align-items-center d-flex justify-content-center">
+      <Row>
       <Row className="d-flex justify-content-center align-items-center pt-2">
         <Col className="col-9 col-md-5">
           <Form.Select
@@ -174,13 +175,27 @@ function Repairs() {
           />
         </Col>
       </Row>
-      {isValid && !isSend && (
+      {isValid && !isSend && userToken && (
         <Row className="d-flex justify-content-center align-items-center ">
           <Col className="d-flex justify-content-center align-items-center pt-2">
             <button
               className="custom-btn btn-1"
               onClick={(e) => {
                 submitHandler(e);
+              }}
+            >
+              Submit
+            </button>
+          </Col>
+        </Row>
+      )}
+      {isValid && !isSend && !userToken && (
+        <Row className="d-flex justify-content-center align-items-center ">
+          <Col className="d-flex justify-content-center align-items-center pt-2">
+            <button
+              className="custom-btn btn-1"
+              onClick={(e) => {
+                navigate('/login');
               }}
             >
               Submit
@@ -199,6 +214,7 @@ function Repairs() {
           </Col>
         </Row>
       )}
+      </Row>
     </Container>
   );
 }
