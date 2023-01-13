@@ -2,27 +2,37 @@ import { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { deleteUserByAdmin } from "../../services/apiCalls";
+import { deleteUserByAdmin, upgradeUserToAdmin } from "../../services/apiCalls";
 
-function UserTable(users) {
+function UserTable({ users, refresh }) {
   const [clickedUser, setClickedUser] = useState({});
   const [show, setShow] = useState(false);
   const [usersArray, setuserArray] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const arrayUsers = users;
 
   const clickHandler = (user) => {
     setClickedUser(user);
     handleShow();
   };
-  
+
   const deleteButtonHandler = (user) => {
     const body = { user_id: user?.id };
     deleteUserByAdmin(body)
       .then((res) => {
-        arrayUsers?.arrayUsers.filter((user) => user?.id !== clickedUser?.id)
-        handleClose()
+        users.filter((user) => user?.id !== clickedUser?.id);
+        refresh();
+        handleClose();
+      })
+      .catch((error) => console.log(error));
+  };
+  const upgradeButtonHandler = (user) => {
+    const body = { user_id: user?.id };
+    upgradeUserToAdmin(body)
+      .then((res) => {
+        users.filter((user) => user?.id !== clickedUser?.id);
+        refresh();
+        handleClose();
       })
       .catch((error) => console.log(error));
   };
@@ -36,16 +46,18 @@ function UserTable(users) {
             <th>Name</th>
             <th>Surname</th>
             <th>Email</th>
+            <th>Role ID</th>
           </tr>
         </thead>
         <tbody>
-          {arrayUsers?.arrayUsers.map((user, index) => {
+          {users.map((user, index) => {
             return (
               <tr key={index} onClick={() => clickHandler(user)}>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.surname}</td>
-                <td>{user.email}</td>
+                <td>{user?.id}</td>
+                <td>{user?.name}</td>
+                <td>{user?.surname}</td>
+                <td>{user?.email}</td>
+                <td>{user?.role_id}</td>
               </tr>
             );
           })}
@@ -61,13 +73,26 @@ function UserTable(users) {
             <p>{clickedUser?.email}</p>
           </Modal.Title>
         </Modal.Header>
-
-        <Modal.Footer className=" justify-content-center">
-          <Button variant="danger" onClick={() => {deleteButtonHandler(clickedUser)}}>
-            Delete
-          </Button>
-          <Button variant="primary">Update</Button>
-        </Modal.Footer>
+        {clickedUser?.role_id === 1 && (
+          <Modal.Footer className=" justify-content-center">
+            <Button
+              variant="danger"
+              onClick={() => {
+                deleteButtonHandler(clickedUser);
+              }}
+            >
+              Delete
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                upgradeButtonHandler(clickedUser);
+              }}
+            >
+              Upgrade
+            </Button>
+          </Modal.Footer>
+        )}
       </Modal>
     </>
   );
