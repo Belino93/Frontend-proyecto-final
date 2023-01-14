@@ -73,12 +73,12 @@ function Profile() {
   };
 
   return (
-    <Container fluid className="min-vh-100 text-center container-home">
-      <Row className="d-flex">
-        <Tabs
+    <>
+    <Tabs
           defaultActiveKey="repairs"
           variant="pills"
           onClick={(e) => profileClickHandler(e)}
+          className="tabs-container"
         >
           <Tab
             key={"repair"}
@@ -95,15 +95,14 @@ function Profile() {
             tabClassName="profile-menu"
           ></Tab>
         </Tabs>
-      </Row>
-
+    <Container fluid className="min-vh-100 text-center container-home d-flex flex-column align-items-center justify-content-center">
       {profile && (
-        <Row>
-          <ProfileCard className="card" userData={userPofile}></ProfileCard>
-        </Row>
+        <>
+          <ProfileCard className="card profile-card" userData={userPofile}></ProfileCard>
+        </>        
       )}
       {!profile && (
-        <Row className="m-2">
+        <Row className="m-2 p-1">
               <SearchInput handler={inputHandler} />
         </Row>
       )}
@@ -193,14 +192,14 @@ function Profile() {
       )}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>
+        </Modal.Header>
+          <Modal.Title className="d-flex flex-column justify-content-center align-items-center">
             <p>Repair No.{clickedRepair?.id}</p>
             <p>
               {clickedRepair?.brand} {clickedRepair?.model}
             </p>
           </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="d-flex flex-column justify-content-center align-items-center">
           <p>Repair type: {clickedRepair?.type}</p>
           <p>IMEI: {clickedRepair?.imei}</p>
           <p>Created: {clickedRepair?.created_at?.slice(0, 10)}</p>
@@ -216,6 +215,7 @@ function Profile() {
         </Modal.Footer>
       </Modal>
     </Container>
+    </>
   );
 }
 

@@ -9,3 +9,6 @@
     border-radius: var(--bs-nav-pills-border-radius);
 }
 
+.user-table{
+    height: auto;
+}

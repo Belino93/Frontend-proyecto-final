@@ -1,0 +1,15 @@
+.input-update {
+  margin: 1em;
+  border-radius: 5px;
+}
+
+.profile-card {
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-data {
+    padding: 2em;
+}
