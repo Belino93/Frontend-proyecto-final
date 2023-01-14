@@ -22,14 +22,7 @@ function UserTable({ users, refresh }) {
   useEffect(() => {
     arrayPage = users.slice(indexOfFirstUser, indexOfLastUser)
     setusersArray(arrayPage)
-    refresh()
-  }, [currentPage])
-  
-  useEffect(() => {
-    arrayPage = users.slice(indexOfFirstUser, indexOfLastUser)
-    setusersArray(arrayPage)
-    refresh()
-  }, [currentPage])
+  }, [currentPage, users])
 
   const clickHandler = (user) => {
     setClickedUser(user);
@@ -58,6 +51,7 @@ function UserTable({ users, refresh }) {
   };
 
   const changePage = (e) => {
+    console.log(e)
     setCurrentPage(e)
     arrayPage = users.slice(indexOfFirstUser, indexOfLastUser)
     setusersArray(arrayPage)
@@ -74,17 +68,6 @@ function UserTable({ users, refresh }) {
 
   return (
     <>
-    {users.length === 0 && (
-      <div>
-                <Spinner
-                  animation="border"
-                  variant="light"
-                  className="spinner-load"
-                />
-              </div>
-    )}
-    {users.length > 0 && (
-      <>
       <Table bordered hover responsive>
         <thead>
           <tr>
@@ -145,9 +128,6 @@ function UserTable({ users, refresh }) {
         )}
       </Modal>
     </>
-    )}
-    </>
-    
   );
 }
 
