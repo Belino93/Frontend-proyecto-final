@@ -3,13 +3,33 @@ import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { deleteUserByAdmin, upgradeUserToAdmin } from "../../services/apiCalls";
+import Pagination from "react-bootstrap/Pagination";
+import Spinner from "react-bootstrap/Spinner";
+
 
 function UserTable({ users, refresh }) {
   const [clickedUser, setClickedUser] = useState({});
   const [show, setShow] = useState(false);
-  const [usersArray, setuserArray] = useState([]);
+  const [usersArray, setusersArray] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [usersInPage, setUsersInPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const indexOfLastUser = currentPage * usersInPage;
+  const indexOfFirstUser = indexOfLastUser - usersInPage;
+  let arrayPage = []
+
+  useEffect(() => {
+    arrayPage = users.slice(indexOfFirstUser, indexOfLastUser)
+    setusersArray(arrayPage)
+    refresh()
+  }, [currentPage])
+  
+  useEffect(() => {
+    arrayPage = users.slice(indexOfFirstUser, indexOfLastUser)
+    setusersArray(arrayPage)
+    refresh()
+  }, [currentPage])
 
   const clickHandler = (user) => {
     setClickedUser(user);
@@ -37,9 +57,35 @@ function UserTable({ users, refresh }) {
       .catch((error) => console.log(error));
   };
 
+  const changePage = (e) => {
+    setCurrentPage(e)
+    arrayPage = users.slice(indexOfFirstUser, indexOfLastUser)
+    setusersArray(arrayPage)
+  }
+
+  let items = [];
+  for (let number = 1; number <= 5; number++) {
+    items.push(
+      <Pagination.Item key={number} onClick={() => {changePage(number)}}>
+        {number}
+      </Pagination.Item>
+    );
+  }
+
   return (
     <>
-      <Table striped bordered hover variant="dark" responsive>
+    {users.length === 0 && (
+      <div>
+                <Spinner
+                  animation="border"
+                  variant="light"
+                  className="spinner-load"
+                />
+              </div>
+    )}
+    {users.length > 0 && (
+      <>
+      <Table bordered hover responsive>
         <thead>
           <tr>
             <th>#</th>
@@ -50,7 +96,7 @@ function UserTable({ users, refresh }) {
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => {
+          {usersArray.map((user, index) => {
             return (
               <tr key={index} onClick={() => clickHandler(user)}>
                 <td>{user?.id}</td>
@@ -63,6 +109,10 @@ function UserTable({ users, refresh }) {
           })}
         </tbody>
       </Table>
+      <div className="d-flex align-items-center justify-content-center">
+        <Pagination>{items}</Pagination>
+        <br />
+      </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
@@ -95,6 +145,9 @@ function UserTable({ users, refresh }) {
         )}
       </Modal>
     </>
+    )}
+    </>
+    
   );
 }
 
