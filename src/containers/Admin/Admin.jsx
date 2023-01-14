@@ -93,8 +93,6 @@ function Admin() {
       return setUsersScreen(!usersScreen);
     }
   };
-  
-
 
   return (
     <Container fluid className="min-vh-100 text-center container-home">
@@ -118,6 +116,19 @@ function Admin() {
             title="Users"
             tabClassName="profile-menu"
           ></Tab>
+          <Tab
+            key={"users"}
+            id="users"
+            title="New Repair"
+            tabClassName="profile-menu"
+          ></Tab>
+          <Tab
+            key={"users"}
+            id="users"
+            title="New Device"
+            tabClassName="profile-menu"
+          ></Tab>
+
         </Tabs>
       </Row>
       {usersScreen && (
