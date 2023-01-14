@@ -12,7 +12,7 @@ function UserTable({ users, refresh }) {
   const [usersArray, setusersArray] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [usersInPage, setUsersInPage] = useState(10);
+  const [usersInPage, setUsersInPage] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastUser = currentPage * usersInPage;
   const indexOfFirstUser = indexOfLastUser - usersInPage;
@@ -70,9 +70,15 @@ function UserTable({ users, refresh }) {
   }
 
   return (
-    <>{usersArray.length === 0 && (
+    <>
+    {users.length === 0 && (
       <div>
         <Spinner animation="border" variant="dark" className="spinner-load" />
+      </div>
+    )}
+    {usersArray.length === 0 && (
+      <div>
+        <h1>Any user here</h1>
       </div>
     )}
       {usersArray.length > 0 && (
@@ -80,7 +86,7 @@ function UserTable({ users, refresh }) {
           <Table bordered hover responsive>
             <thead>
               <tr>
-                <th>#</th>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Surname</th>
                 <th>Email</th>
@@ -101,20 +107,25 @@ function UserTable({ users, refresh }) {
               })}
             </tbody>
           </Table>
-          <div className="d-flex align-items-center justify-content-center">
+          
+        </>
+      )}
+      <div className="d-flex align-items-center justify-content-center">
             <Pagination>{items}</Pagination>
             <br />
           </div>
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>
+            </Modal.Header>
+              <Modal.Title className="d-flex justify-content-center align-items-center">
+                <div>
                 <p>User: {clickedUser?.id}</p>
                 <p>
-                  {clickedUser?.name} {clickedUser?.surname}
+                  Name: {clickedUser?.name} {clickedUser?.surname}
                 </p>
-                <p>{clickedUser?.email}</p>
+                <p>Email: {clickedUser?.email}</p>
+                </div>
               </Modal.Title>
-            </Modal.Header>
             {clickedUser?.role_id === 1 && (
               <Modal.Footer className=" justify-content-center">
                 <Button
@@ -136,8 +147,6 @@ function UserTable({ users, refresh }) {
               </Modal.Footer>
             )}
           </Modal>
-        </>
-      )}
     </>
   );
 }
