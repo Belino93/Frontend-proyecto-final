@@ -9,17 +9,19 @@
   margin-bottom: 1vh;
 }
 
-.nav-link {
-  color: white;
+.nav{
+    --bs-nav-link-color: white; 
 }
 
+
+
 .nav-pills .nav-link.active {
-  --bs-nav-pills-border-radius: 0.375rem;
-  --bs-nav-pills-link-active-color: black;
-  --bs-nav-pills-link-active-bg: white;
+  --bs-nav-pills-border-radius: 0.375rem ;
+  --bs-nav-pills-link-active-color: black !important;
+  --bs-nav-pills-link-active-bg: white !important;
 }
 .profile-menu .nav-link {
-  background-color: rgb(33, 37, 41);
+  background-color: rgb(33, 37, 41) !important;
   border: 0;
   border-radius: var(--bs-nav-pills-border-radius);
 }
