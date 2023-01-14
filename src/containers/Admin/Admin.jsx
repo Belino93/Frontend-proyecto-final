@@ -10,6 +10,7 @@ import {
   getAllUsers,
 } from "../../services/apiCalls";
 import Spinner from "react-bootstrap/Spinner";
+
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Tab from "react-bootstrap/Tab";
@@ -17,7 +18,7 @@ import Tabs from "react-bootstrap/Tabs";
 import SearchInput from "../../components/SearchInput/SearchInput.jsx";
 import { debounce } from "lodash";
 import UserTable from "../../components/UserTable/UserTable";
-import "./Admin.css"
+import "./Admin.css";
 
 function Admin() {
   const [usersRepairs, setUsersRepairs] = useState([]);
@@ -92,12 +93,14 @@ function Admin() {
       return setUsersScreen(!usersScreen);
     }
   };
+  
+
 
   return (
     <Container fluid className="min-vh-100 text-center container-home">
       <Row className="mb-2">
         <Tabs
-          defaultActiveKey="repairs"  
+          defaultActiveKey="repairs"
           variant="pills"
           onClick={(e) => usersClickHandler(e)}
         >
@@ -118,7 +121,9 @@ function Admin() {
         </Tabs>
       </Row>
       {usersScreen && (
-        <UserTable users={users} refresh={refreshScreen}></UserTable>
+        <Row className="card">
+          <UserTable users={users} refresh={refreshScreen}></UserTable>
+        </Row>
       )}
       {!usersScreen && (
         <Row>
