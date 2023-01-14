@@ -44,7 +44,7 @@ function Profile() {
     getProfile()
       .then((res) => setUserProfile(res))
       .catch((error) => {
-        console.log(error);
+        return;
       });
   }, []);
 
@@ -56,7 +56,7 @@ function Profile() {
       .then((res) => {
         setSearch(res.data.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {return});
   }, 500);
 
   const clickHandler = (repair) => {

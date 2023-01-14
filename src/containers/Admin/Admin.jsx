@@ -27,7 +27,7 @@ function Admin() {
   const [clickedRepair, setClickedRepair] = useState({});
   const [search, setSearch] = useState([]);
   const [repairError, setRepairError] = useState("");
-  const [modalError, setModalError] = useState("");
+  // const [modalError, setModalError] = useState("");
   const [inputsModal, setInputsModal] = useState({
     type: "",
     device: "",
@@ -68,7 +68,7 @@ function Admin() {
       .then((res) => {
         setSearch(res.data.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {return});
   }, 500);
 
   const clickHandler = (repair) => {
@@ -90,7 +90,7 @@ function Admin() {
         setRefresh(!refresh);
         handleClose();
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {return});
   };
 
   const refreshScreen = () => {

@@ -36,7 +36,7 @@ function UserTable({ users, refresh }) {
         refresh();
         handleClose();
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {return});
   };
   const upgradeButtonHandler = (user) => {
     const body = { user_id: user?.id };
@@ -46,7 +46,7 @@ function UserTable({ users, refresh }) {
         refresh();
         handleClose();
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {return});
   };
 
   const changePage = (e) => {

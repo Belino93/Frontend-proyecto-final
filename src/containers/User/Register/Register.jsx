@@ -50,7 +50,6 @@ function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     let isValid = true;
-    //console.log(user);
     Object.values(user).forEach((element) => {
       if (element === "") {
         isValid = false;
