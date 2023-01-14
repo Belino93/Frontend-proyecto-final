@@ -190,12 +190,8 @@ function Admin() {
         </Row>
       )}
       {!usersScreen && (
-        <Row>
-          <Col className="mt-1">
-            <div className="search-div">
-              <SearchInput handler={inputHandler} />
-            </div>
-          </Col>
+        <Row className="m-2">
+          <SearchInput handler={inputHandler}/>
         </Row>
       )}
       {usersRepairs.length === 0 && search.length === 0 && !usersScreen && (
@@ -326,28 +322,28 @@ function Admin() {
         <Modal.Body>
           {createModal === "New Repair" && (
             <>
-            <div className="d-flex justify-content-center align-items-center">
-              <input
-                name="type"
-                placeholder="type"
-                onChange={(e) => setInputs(e)}
-              ></input>
+              <div className="d-flex justify-content-center align-items-center">
+                <input
+                  name="type"
+                  placeholder="type"
+                  onChange={(e) => setInputs(e)}
+                ></input>
               </div>
             </>
           )}
           {createModal === "New Device" && (
             <>
-            <div className="d-flex justify-content-center align-items-center">
-              <input
-                name="brand"
-                placeholder="brand"
-                onChange={(e) => setInputs(e)}
-              ></input>
-              <input
-                name="model"
-                placeholder="model"
-                onChange={(e) => setInputs(e)}
-              ></input>
+              <div className="d-flex justify-content-center align-items-center">
+                <input
+                  name="brand"
+                  placeholder="brand"
+                  onChange={(e) => setInputs(e)}
+                ></input>
+                <input
+                  name="model"
+                  placeholder="model"
+                  onChange={(e) => setInputs(e)}
+                ></input>
               </div>
             </>
           )}

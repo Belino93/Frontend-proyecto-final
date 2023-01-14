@@ -103,12 +103,8 @@ function Profile() {
         </Row>
       )}
       {!profile && (
-        <Row>
-          <Col className="mt-1">
-            <div className="search-div">
+        <Row className="m-2">
               <SearchInput handler={inputHandler} />
-            </div>
-          </Col>
         </Row>
       )}
 
