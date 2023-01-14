@@ -41,8 +41,8 @@ function ProfileCard({ userData }) {
     }
 
     updateUser(userData)
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error));
+      .then((res) => {return})
+      .catch((error) => {return});
     setEditUser(false);
     navigate("/");
   };
