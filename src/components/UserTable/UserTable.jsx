@@ -51,7 +51,6 @@ function UserTable({ users, refresh }) {
   };
 
   const changePage = (e) => {
-    console.log(e)
     setCurrentPage(e)
     arrayPage = users.slice(indexOfFirstUser, indexOfLastUser)
     setusersArray(arrayPage)
