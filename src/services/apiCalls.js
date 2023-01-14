@@ -171,3 +171,21 @@ export const updateUser = async (body) => {
 
   return userUpdated;
 };
+export const newDevice = async (body) => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
+  const device = await axios.post(baseUrl + "devices/new", body, config);
+
+  return device;
+};
+export const newRepair = async (body) => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
+  const device = await axios.post(baseUrl + "repairs/", body, config);
+
+  return device;
+};
