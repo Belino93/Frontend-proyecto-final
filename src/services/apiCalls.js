@@ -10,6 +10,15 @@ export const getBrands = async () => {
 
   return brands;
 };
+export const getProfile = async () => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
+  const userData = await axios.get(baseUrl + "profile", config);
+
+  return userData.data;
+};
 
 export const loginUser = async (user) => {
   const loginData = await axios.post(baseUrl + "login", {
@@ -46,15 +55,16 @@ export const getUserRepairs = async () => {
     headers: { Authorization: "Bearer " + token },
   };
   const userRepairs = await axios.get(baseUrl + "user/repairs", config);
+
   return userRepairs;
 };
-
 export const getAllRepairs = async () => {
   const token = localStorage.getItem("token");
   const config = {
     headers: { Authorization: "Bearer " + token },
   };
   const repairs = await axios.get(baseUrl + "repairs", config);
+
   return repairs;
 };
 export const getAllUsersRepairs = async () => {
@@ -63,6 +73,7 @@ export const getAllUsersRepairs = async () => {
     headers: { Authorization: "Bearer " + token },
   };
   const userRepairs = await axios.get(baseUrl + "admin/repairs", config);
+
   return userRepairs;
 };
 export const getUserRepairsByImei = async (input) => {
@@ -72,6 +83,7 @@ export const getUserRepairsByImei = async (input) => {
     imei,
     config
   );
+
   return userRepairs;
 };
 export const getDevicesByBrand = async (brandName) => {
@@ -81,6 +93,7 @@ export const getDevicesByBrand = async (brandName) => {
   };
   const body = { brand: brandName };
   const devices = await axios.post(baseUrl + "devices/brand", body, config);
+
   return devices;
 };
 export const newUserRepair = async (userRepair) => {
@@ -90,6 +103,7 @@ export const newUserRepair = async (userRepair) => {
   };
   const body = userRepair;
   const devices = await axios.post(baseUrl + "user/repairs", body, config);
+
   return devices;
 };
 export const nextRepairState = async (deviceRepairId) => {
@@ -103,6 +117,7 @@ export const nextRepairState = async (deviceRepairId) => {
     body,
     config
   );
+
   return devices;
 };
 export const prevRepairState = async (deviceRepairId) => {
@@ -116,5 +131,61 @@ export const prevRepairState = async (deviceRepairId) => {
     body,
     config
   );
+
   return devices;
+};
+export const getAllUsers = async () => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
+  const userRepairs = await axios.get(baseUrl + "users", config);
+
+  return userRepairs;
+};
+
+export const deleteUserByAdmin = async (body) => {
+  const token = localStorage.getItem("token");
+  const userDeleted = await axios.delete(baseUrl + "users/delete", {
+    headers: { Authorization: "Bearer " + token },
+    data: body,
+  });
+
+  return userDeleted;
+};
+export const upgradeUserToAdmin = async (body) => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
+  const userUpdated = await axios.patch(baseUrl + "users/admin", body, config);
+
+  return userUpdated;
+};
+export const updateUser = async (body) => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
+  const userUpdated = await axios.patch(baseUrl + "users", body, config);
+
+  return userUpdated;
+};
+export const newDevice = async (body) => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
+  const device = await axios.post(baseUrl + "devices/new", body, config);
+
+  return device;
+};
+export const newRepair = async (body) => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
+  const device = await axios.post(baseUrl + "repairs/", body, config);
+
+  return device;
 };

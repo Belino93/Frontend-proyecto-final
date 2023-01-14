@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./Profile.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -8,20 +7,26 @@ import Button from "react-bootstrap/Button";
 import {
   getUserRepairs,
   getUserRepairsByImei,
+  getProfile,
 } from "../../../services/apiCalls";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 import Spinner from "react-bootstrap/Spinner";
 import SearchInput from "../../../components/SearchInput/SearchInput";
 import { debounce } from "lodash";
+import ProfileCard from "../../../components/ProfileCard/ProfileCard";
+import "./Profile.css";
 
 function Profile() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const user = JSON.parse(localStorage.getItem("user"));
   const [userRepairs, setUserRepairs] = useState([]);
   const [clickedRepair, setClickedRepair] = useState({});
   const [search, setSearch] = useState([]);
   const [repairError, setRepairError] = useState("");
+  const [profile, setProfile] = useState(false);
+  const [userPofile, setUserProfile] = useState({});
 
   useEffect(() => {
     getUserRepairs()
@@ -32,6 +37,14 @@ function Profile() {
         if (error?.response?.status === 400) {
           setRepairError(error?.response?.data.message);
         }
+      });
+  }, []);
+
+  useEffect(() => {
+    getProfile()
+      .then((res) => setUserProfile(res))
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
 
@@ -50,17 +63,52 @@ function Profile() {
     setClickedRepair(repair);
     handleShow();
   };
+  const profileClickHandler = (event) => {
+    if (event.target.innerHTML === "Repairs" && profile) {
+      return setProfile(!profile);
+    }
+    if (event.target.innerHTML === "Profile" && !profile) {
+      return setProfile(!profile);
+    }
+  };
 
   return (
     <Container fluid className="min-vh-100 text-center container-home">
-      <Row>
-        <Col className="mt-1">
-          <div className="search-div">
-            <SearchInput handler={inputHandler} />
-          </div>
-        </Col>
+      <Row className="d-flex">
+        <Tabs
+          defaultActiveKey="repairs"
+          variant="pills"
+          onClick={(e) => profileClickHandler(e)}
+        >
+          <Tab
+            key={"repair"}
+            id="repairs"
+            eventKey="repairs"
+            title="Repairs"
+            tabClassName="profile-menu"
+          ></Tab>
+          <Tab
+            key={"profile"}
+            id="repairs"
+            eventKey="profile"
+            title="Profile"
+            tabClassName="profile-menu"
+          ></Tab>
+        </Tabs>
       </Row>
-      {userRepairs.length === 0 && search.length === 0 && (
+
+      {profile && (
+        <Row>
+          <ProfileCard className="card" userData={userPofile}></ProfileCard>
+        </Row>
+      )}
+      {!profile && (
+        <Row className="m-2">
+              <SearchInput handler={inputHandler} />
+        </Row>
+      )}
+
+      {userRepairs.length === 0 && search.length === 0 && !profile && (
         <Row className="flex-grow-1">
           <Col>
             {repairError === "" && (
@@ -80,7 +128,7 @@ function Profile() {
           </Col>
         </Row>
       )}
-      {search.length > 0 && (
+      {search.length > 0 && !profile && (
         <>
           <Row className="">
             {search.map((repair, index) => {
@@ -100,6 +148,9 @@ function Profile() {
                       Repair type:{" "}
                       <span className="highlighted">{repair.type}</span>
                     </p>
+                    <p>
+                      Imei: <span className="highlighted">{repair.imei}</span>
+                    </p>
                   </div>
                 </Col>
               );
@@ -108,7 +159,7 @@ function Profile() {
         </>
       )}
 
-      {search.length < 1 && (
+      {search.length < 1 && !profile && (
         <>
           <Row className="">
             {userRepairs.map((repair, index) => {
