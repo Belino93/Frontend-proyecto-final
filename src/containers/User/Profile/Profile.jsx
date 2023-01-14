@@ -73,12 +73,12 @@ function Profile() {
   };
 
   return (
-    <Container fluid className="min-vh-100 text-center container-home">
-      <Row className="d-flex">
-        <Tabs
+    <>
+    <Tabs
           defaultActiveKey="repairs"
           variant="pills"
           onClick={(e) => profileClickHandler(e)}
+          className="tabs-container"
         >
           <Tab
             key={"repair"}
@@ -95,15 +95,14 @@ function Profile() {
             tabClassName="profile-menu"
           ></Tab>
         </Tabs>
-      </Row>
-
+    <Container fluid className="min-vh-100 text-center container-home d-flex flex-column align-items-center justify-content-center">
       {profile && (
-        <Row>
-          <ProfileCard className="card" userData={userPofile}></ProfileCard>
-        </Row>
+        <>
+          <ProfileCard className="card profile-card" userData={userPofile}></ProfileCard>
+        </>        
       )}
       {!profile && (
-        <Row className="m-2">
+        <Row className="m-2 p-1">
               <SearchInput handler={inputHandler} />
         </Row>
       )}
@@ -216,6 +215,7 @@ function Profile() {
         </Modal.Footer>
       </Modal>
     </Container>
+    </>
   );
 }
 

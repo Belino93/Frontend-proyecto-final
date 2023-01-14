@@ -2,6 +2,16 @@
   color: rgba(96, 9, 240, 1);
 }
 
+.tabs-container{
+  background-color: rgba(129, 5, 240, 1);
+}
+
+.profile-card{
+  margin-top: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
 .search-div {
   display: flex;
   align-items: center;

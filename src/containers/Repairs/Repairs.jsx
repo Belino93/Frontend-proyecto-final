@@ -4,8 +4,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
-import "./Repairs.css";
 import Form from "react-bootstrap/Form";
+import "./Repairs.css";
 import {
   getBrands,
   getDevicesByBrand,
@@ -89,11 +89,11 @@ function Repairs() {
 
   return (
     <Container fluid className="min-vh-100 container-home align-items-center d-flex justify-content-center">
-      <Row>
+      <Row className="form-row p-0 p-md-5">
       <Row className="d-flex justify-content-center align-items-center pt-2">
-        <Col className="col-9 col-md-5">
+        <Col className="col-9 col-md-5 p-0 p-md-2">
           <Form.Select
-            className="text-center"
+            className="text-center input-repair"
             onChange={(e) => {
               brandHandler(e);
             }}
@@ -111,9 +111,9 @@ function Repairs() {
       </Row>
 
       <Row className="d-flex justify-content-center align-items-center pt-2">
-        <Col className="col-9 col-md-5">
+        <Col className="col-9 col-md-5 p-1 p-md-2">
           <Form.Select
-            className="text-center"
+            className="text-center input-repair"
             name="device_id"
             onChange={(e) => {
               selectHandler(e);
@@ -131,9 +131,9 @@ function Repairs() {
         </Col>
       </Row>
       <Row className="d-flex justify-content-center align-items-center pt-2">
-        <Col className="col-9 col-md-5">
+        <Col className="col-9 col-md-5 p-1 p-md-2">
           <Form.Select
-            className="text-center"
+            className="text-center input-repair"
             name="repair_id"
             onChange={(e) => {
               selectHandler(e);
@@ -158,7 +158,7 @@ function Repairs() {
             name="imei"
             onChange={(e) => selectHandler(e)}
             placeholder="IMEI"
-            className="text-center col-9 col-md-5"
+            className="text-center col-9 col-md-5 input-repair p-1 p-md-2 imei-input"
           />
         </Col>
       </Row>
@@ -171,7 +171,7 @@ function Repairs() {
             name="description"
             onChange={(e) => selectHandler(e)}
             placeholder="Write device problems"
-            className="text-center col-9 col-md-5 text-area-description"
+            className="text-center col-9 col-md-5 text-area-description input-repair mb-2 p-1 p-md-2"
           />
         </Col>
       </Row>
