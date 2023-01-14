@@ -8,6 +8,8 @@ import {
   nextRepairState,
   prevRepairState,
   getAllUsers,
+  newDevice,
+  newRepair,
 } from "../../services/apiCalls";
 import Spinner from "react-bootstrap/Spinner";
 
@@ -25,9 +27,19 @@ function Admin() {
   const [clickedRepair, setClickedRepair] = useState({});
   const [search, setSearch] = useState([]);
   const [repairError, setRepairError] = useState("");
+  const [modalError, setModalError] = useState("");
+  const [inputsModal, setInputsModal] = useState({
+    type: "",
+    device: "",
+    brand: "",
+  });
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [createModal, setCreateModal] = useState("");
+  const handleCloseCreateModal = () => setShowCreateModal(false);
+  const handleShowCreateModal = () => setShowCreateModal(true);
   const [refresh, setRefresh] = useState(false);
   const [usersScreen, setUsersScreen] = useState(false);
   const [users, setUsers] = useState([]);
@@ -92,6 +104,48 @@ function Admin() {
     if (event.target.innerHTML === "Users" && !usersScreen) {
       return setUsersScreen(!usersScreen);
     }
+    if (event.target.innerHTML === "New Repair") {
+      setCreateModal(event.target.innerHTML);
+      return handleShowCreateModal(!showCreateModal);
+    }
+    if (event.target.innerHTML === "New Device") {
+      setCreateModal(event.target.innerHTML);
+      return handleShowCreateModal(!showCreateModal);
+    }
+  };
+
+  const setInputs = (e) => {
+    setInputsModal((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const sendModal = () => {
+    if (createModal === "New Repair") {
+      const type = inputsModal.type;
+      const body = {
+        type: type,
+      };
+      newRepair(body)
+        .then((res) => {
+          handleCloseCreateModal();
+        })
+        .catch((error) => {});
+    }
+    if (createModal === "New Device") {
+      const brand = inputsModal.brand;
+      const model = inputsModal.model;
+      const body = {
+        brand: brand,
+        model: model,
+      };
+      newDevice(body)
+        .then((res) => {
+          handleCloseCreateModal();
+        })
+        .catch((error) => {});
+    }
   };
 
   return (
@@ -117,18 +171,17 @@ function Admin() {
             tabClassName="profile-menu"
           ></Tab>
           <Tab
-            key={"users"}
+            key={"newRepair"}
             id="users"
             title="New Repair"
             tabClassName="profile-menu"
           ></Tab>
           <Tab
-            key={"users"}
+            key={"newDevice"}
             id="users"
             title="New Device"
             tabClassName="profile-menu"
           ></Tab>
-
         </Tabs>
       </Row>
       {usersScreen && (
@@ -261,6 +314,47 @@ function Admin() {
             onClick={() => nextState(clickedRepair?.id)}
           >
             Next state
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showCreateModal} onHide={handleCloseCreateModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <h1>{createModal}</h1>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {createModal === "New Repair" && (
+            <>
+            <div className="d-flex justify-content-center align-items-center">
+              <input
+                name="type"
+                placeholder="type"
+                onChange={(e) => setInputs(e)}
+              ></input>
+              </div>
+            </>
+          )}
+          {createModal === "New Device" && (
+            <>
+            <div className="d-flex justify-content-center align-items-center">
+              <input
+                name="brand"
+                placeholder="brand"
+                onChange={(e) => setInputs(e)}
+              ></input>
+              <input
+                name="model"
+                placeholder="model"
+                onChange={(e) => setInputs(e)}
+              ></input>
+              </div>
+            </>
+          )}
+        </Modal.Body>
+        <Modal.Footer className=" justify-content-center">
+          <Button variant="success" onClick={() => sendModal()}>
+            Create
           </Button>
         </Modal.Footer>
       </Modal>
