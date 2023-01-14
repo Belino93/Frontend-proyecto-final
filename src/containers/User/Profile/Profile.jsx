@@ -193,14 +193,14 @@ function Profile() {
       )}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>
+        </Modal.Header>
+          <Modal.Title className="d-flex flex-column justify-content-center align-items-center">
             <p>Repair No.{clickedRepair?.id}</p>
             <p>
               {clickedRepair?.brand} {clickedRepair?.model}
             </p>
           </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="d-flex flex-column justify-content-center align-items-center">
           <p>Repair type: {clickedRepair?.type}</p>
           <p>IMEI: {clickedRepair?.imei}</p>
           <p>Created: {clickedRepair?.created_at?.slice(0, 10)}</p>
