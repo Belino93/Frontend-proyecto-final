@@ -1,70 +1,68 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Proyecto Final Fixapp
 
-## Available Scripts
+---
+<a href="https://master.d3065uqpkatl7x.amplifyapp.com/"> Deploy en AWS </a>
 
-In the project directory, you can run:
+<br>
 
-### `npm start`
+<p>En este caso la tematica era libre, y he elegido crear Fixapp una plataforma que permite gestionar reparaciones de dispositivos moviles. En este repositorio se encuentra la parte backend del proyecto. Repositorio Backend PHP Laravel: <a href="https://github.com/Belino93/Backend-Project-5/"></a></p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
+### Home
+<p>- La página principal.</p>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+(IMAGEN HOME)
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Register
+ <p>- La página de registro. Validaciones en cada campo</p>
 
-### `npm run build`
+(IMAGEN REGISTRO)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ ### Log in
+ <p>- La página de login.</p>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+(IMAGEN LOGIN)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Repairs
+<p>La página de repairs permite crear una reparacion con las opciones proporcionadas por los campos</p>
 
-### `npm run eject`
+(IMAGEN REPAIRS)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Perfil 
+<p>Nos muestra nuestras reparaciones y cambiando con la pestaña nos permite ver el perfil y actualizarlo.</p>
+<p>Las reparaciones tienen un modal que se muestra cuando haces click y contiene mas información</p>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+(IMAGEN PERFIL)
+(IMAGEN PERFIL)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+### Control 
+<p>Esta es la pantalla de control, solo los admins tienen acceso. Permite gestionar las reparacion y los usuarios.</p>
+<p>Las reparaciones y los usuarios tienen un modal que se muestra cuando haces click y contiene mas información y permite ver las opciones disponibles</p>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+(IMAGEN PERFIL)
+(IMAGEN PERFIL)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+--- 
 
-### Code Splitting
+### Tecnologías
+- HTML
+- CSS
+- JavaScript
+- React - JS Library.
+- React-router-dom - Enrutado dinámico.
+- React-Bootstrap - Diseño
+- Railway - BD
+- Aws - APP web.
+- Axios - Libreria.
+- Bootstrap - Diseño.
+- jsonwebtoken - Securización.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+### AUTHORS
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- ABEL MADRID 
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
