@@ -1,70 +1,73 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Proyecto Final Fixapp
 
-## Available Scripts
+---
+<a href="https://master.d3065uqpkatl7x.amplifyapp.com/"> Deploy en AWS </a>
 
-In the project directory, you can run:
+<br>
+Proyecto final del curso de GeeksHubs academy.
+<p>En este caso la tematica era libre, y he elegido crear Fixapp una plataforma que permite gestionar reparaciones de dispositivos moviles. En este repositorio se encuentra la parte backend del proyecto. Repositorio Backend PHP Laravel: <a href="https://github.com/Belino93/Backend-Project-5/"></a></p>
 
-### `npm start`
+---
+### Home
+<p>- La página principal.</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![Home](https://user-images.githubusercontent.com/90568424/212559999-f0a89dfe-071e-4084-90f1-39c978c528dd.PNG)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Register
+ <p>- La página de registro. Validaciones en cada campo</p>
 
-### `npm run build`
+![Register](https://user-images.githubusercontent.com/90568424/212560003-94c8535e-8e0e-49a7-bd65-fdedf9003255.PNG)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ ### Log in
+ <p>- La página de login.</p>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Login](https://user-images.githubusercontent.com/90568424/212560009-ab766d9f-05e8-4b19-b7dc-b5309112fdbe.PNG)
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Repairs
+<p>La página de repairs permite crear una reparacion con las opciones proporcionadas por los campos</p>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![RepairView](https://user-images.githubusercontent.com/90568424/212560015-a72fdc2c-0dfe-4310-867c-11da779dd0bf.PNG)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+### Perfil 
+<p>Nos muestra nuestras reparaciones y cambiando con la pestaña nos permite ver el perfil y actualizarlo.</p>
+<p>Las reparaciones tienen un modal que se muestra cuando haces click y contiene mas información</p>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![ProfileRepair](https://user-images.githubusercontent.com/90568424/212560098-987d2a2f-57bd-485b-8987-dcda88760af7.PNG)
+![Profile](https://user-images.githubusercontent.com/90568424/212560109-931ba26e-e881-4b33-822e-7a7fdd743894.PNG)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Control 
+<p>Esta es la pantalla de control, solo los admins tienen acceso. Permite gestionar las reparacion y los usuarios.</p>
+<p>Las reparaciones y los usuarios tienen un modal que se muestra cuando haces click y contiene mas información y permite ver las opciones disponibles</p>
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![AdminRepairs](https://user-images.githubusercontent.com/90568424/212560121-c361b1e4-6d0e-4663-ae89-9e93da438245.PNG)
+![ModalAdminRepair](https://user-images.githubusercontent.com/90568424/212560125-2d5f7b16-c247-4105-a2cc-f63bbef629d9.PNG)
+![AdminUsers](https://user-images.githubusercontent.com/90568424/212560135-7de10688-3c1f-4dcd-86df-37bbb265144a.PNG)
+![AdminModalUser](https://user-images.githubusercontent.com/90568424/212560141-5f01d26b-4cde-4608-a33f-887fe6eac613.PNG)
+--- 
 
-### Analyzing the Bundle Size
+### Tecnologías
+- HTML
+- CSS
+- JavaScript
+- React - JS Library.
+- React-router-dom - Enrutado dinámico.
+- React-Bootstrap - Diseño
+- Railway - BD
+- Aws - APP web.
+- Axios - Libreria.
+- Bootstrap - Diseño.
+- jsonwebtoken - Securización.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+### AUTHORS
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- ABEL MADRID 
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

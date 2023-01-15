@@ -84,7 +84,7 @@ function Repairs() {
     newUserRepair(userRepair).then((res) => {
       setIsSend(false);
       navigate("/");
-    });
+    }).catch((error) => {return});
   };
 
   return (
