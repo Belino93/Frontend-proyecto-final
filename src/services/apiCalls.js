@@ -1,5 +1,6 @@
 import axios from "axios";
-const baseUrl = "https://backend-proyecto-final-production-8f16.up.railway.app/api/";
+const baseUrl =
+  "https://backend-proyecto-final-production-8f16.up.railway.app/api/";
 const token = localStorage.getItem("token");
 const config = {
   headers: { Authorization: "Bearer " + token },
@@ -77,6 +78,10 @@ export const getAllUsersRepairs = async () => {
   return userRepairs;
 };
 export const getUserRepairsByImei = async (input) => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: "Bearer " + token },
+  };
   const imei = { imei: input };
   const userRepairs = await axios.post(
     baseUrl + "user/repairs/imei",
