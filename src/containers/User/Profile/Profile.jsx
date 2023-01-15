@@ -76,10 +76,7 @@ function Profile() {
 
   return (
     <>
-      <Container
-        fluid
-        className="min-vh-100 text-center container-home d-flex flex-column align-items-center justify-content-center"
-      >
+      <Container fluid className="min-vh-100 text-center container-home">
         <Row>
           <Tabs
             defaultActiveKey="repairs"
@@ -106,17 +103,17 @@ function Profile() {
         {profile && (
           <>
             <ProfileCard
-              className="card profile-card"
+              className="card profile-card mt-2"
               userData={userPofile}
             ></ProfileCard>
           </>
         )}
         {!profile && (
-
+          <div>
           <Row className="m-2">
             <SearchInput handler={inputHandler} />
           </Row>
-
+          </div>
         )}
 
         {userRepairs.length === 0 && search.length === 0 && !profile && (
