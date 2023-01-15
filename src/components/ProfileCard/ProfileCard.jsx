@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 
 function ProfileCard({ userData }) {
   const navigate = useNavigate();
-
+  const [error, setError] = useState("");
   const [user, setUser] = useState({});
   const [userInput, setUserInput] = useState({
     name: "",
@@ -32,19 +32,20 @@ function ProfileCard({ userData }) {
       name: userInput?.name,
       surname: userInput?.surname,
     };
-
+    if (userInput?.surname === "" && userInput?.name === "") {
+      return setError('Fill one field ')
+    }
     if (userInput?.name === "") {
       userData.name = user?.name;
     }
     if (userInput?.surname === "") {
       userData.surname = user?.surname;
     }
-
     updateUser(userData)
       .then((res) => {return})
       .catch((error) => {return});
+    setError("");
     setEditUser(false);
-    navigate("/");
   };
 
   return (
@@ -78,16 +79,19 @@ function ProfileCard({ userData }) {
               className="m-2"
               onClick={() => {
                 setEditUser(false);
+                setError("")
+
               }}
             >
               Cancel
             </Button>
             </div>
+            <div className="text-danger">{error}</div>
           </>
         )}
         <div>
         <Button
-          className="mb-2"
+          className="mb-2 button-profile"
           onClick={() => {
             !editUser ? setEditUser(true) : sendUpdatedUser();
           }}
