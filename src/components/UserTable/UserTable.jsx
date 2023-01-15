@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import { deleteUserByAdmin, upgradeUserToAdmin } from "../../services/apiCalls";
 import Pagination from "react-bootstrap/Pagination";
 import Spinner from "react-bootstrap/Spinner";
+import "./UserTable.css"
 
 function UserTable({ users, refresh }) {
   const [clickedUser, setClickedUser] = useState({});
@@ -55,10 +56,12 @@ function UserTable({ users, refresh }) {
     setusersArray(arrayPage);
   };
 
+
   let items = [];
   for (let number = 1; number <= 5; number++) {
     items.push(
       <Pagination.Item
+        active={number === currentPage}
         key={number}
         onClick={() => {
           changePage(number);
