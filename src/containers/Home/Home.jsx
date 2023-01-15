@@ -12,7 +12,7 @@ function Home() {
         <Col>
           <div className="card">
             <h1>Welcome to <span className="fix-text">Fix</span>App</h1>
-            <h4>If you can't fix it, you don't own it.! </h4>
+            <h4>If you can't fix it, you don't own it! </h4>
             <h4>
               <span className="text">Repair</span> is better than recycling
             </h4>

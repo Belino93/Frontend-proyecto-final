@@ -109,9 +109,11 @@ function Profile() {
           </>
         )}
         {!profile && (
+          <div>
           <Row className="m-2">
             <SearchInput handler={inputHandler} />
           </Row>
+          </div>
         )}
 
         {userRepairs.length === 0 && search.length === 0 && !profile && (
