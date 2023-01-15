@@ -1,0 +1,7 @@
+.page-link {
+    color: black !important;
+}
+
+.active>.page-link, .page-link.active{
+    background-color: rgba(96, 9, 240, 1) !important;
+}
